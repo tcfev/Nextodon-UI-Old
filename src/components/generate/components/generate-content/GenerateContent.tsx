@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { 
     logger, 
     get,
-    getNumericOrderedWords,
     generateRandomWordsInElement,
 } from "../../../../helpers/functions";
 import { Link } from "react-router-dom";
@@ -18,15 +17,15 @@ type GenerateContentProperties = {
 }
 
 export default function GenerateContent (props: GenerateContentProperties) {
-    const [isDownloaded, setIsDownloaded] = useState(false);
     const [isWritten, setWritten] = useState<null | boolean>(null);
     const WORD_LENGTH = 12; 
     const dispatch = useAppDispatch();
     const generatedPhrase = useAppSelector(selectPhrase);
     let words: string[] | undefined = generatedPhrase.phrase.value;
     const [isLoaded, setIsLoaded] = useState(false);
-    const [toDownloadObject, setToDownloadObject] = useState<any>(null);
     const [popupIsHide, setPopupIsHide] = useState(true);
+
+
     /**
      * Handles form submit 
      * @param event 
@@ -112,7 +111,6 @@ export default function GenerateContent (props: GenerateContentProperties) {
                         title="Regenarates the words"
                         onClick={() => {
                             setPopupIsHide(false);
-                            // setIsLoaded(false)
                         }}
                     >
                         <span className="signup-content-phrase-tool-regenerate-btn-text">Regenerate</span>
@@ -120,23 +118,6 @@ export default function GenerateContent (props: GenerateContentProperties) {
                             <img className="signup-content-phrase-tool-regenerate-btn-icon-image" src={require('./../../../../assets/media/refresh.png')} alt="Refresh"></img>
                         </figure>
                     </button>
-                    {/* <button 
-                        className="signup-content-phrase-tool-download-btn" 
-                        title="Downloads the phrase jsonObject as ForDemPhrase.json file"
-                        onClick={downloadPhrase}
-                    >
-                        <img className="signup-content-phrase-tool-download-btn-image" src={require('./../../../../assets/media/download.png')}  alt="download"/>
-                        <span className="signup-content-phrase-tool-download-btn-text">Download</span>
-                    </button>
-                    <button 
-                        className="signup-content-phrase-tool-copy-btn" 
-                        title="Downloads the phrase jsonObject in the clipboard"
-                        onClick={copyPhrase}
-                        disabled={(!isDownloaded)}
-                    >
-                        <img className="signup-content-phrase-tool-copy-btn-image" src={require('./../../../../assets/media/copy.png')} alt="copy"/>
-                        <span className="signup-content-phrase-tool-copy-btn-text">Copy</span>
-                    </button> */}
                 </div>
             </div>
             <div className="signup-content-control">

@@ -12,12 +12,20 @@ type VerifyContentProperties = {
 export default function VerifyContent (props: VerifyContentProperties) {
     const generatedPhrase: any = useAppSelector(selectPhrase);
     const [emptyPhrase, setEmptyPhrase] = useState(getEmptyArray(props.randomWords.length));
-    // const [passPhrase, setPassPhrase] = useState(null);
 
+    /**
+     * Check if phrase is empty
+     * @returns boolean
+     */
     const isSetEmptyPhrase = () : boolean => {
         return emptyPhrase.findIndex(e => e === null) === -1
     }
 
+    /**
+     * Checks verification between 
+     * ordered and unordered mnemonics
+     * @returns boolean
+     */
     const checkVerification = () : boolean => {
         logger("Checking Verification", generatedPhrase.phrase.value, emptyPhrase);
         let validated = true;
@@ -32,6 +40,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
         if (validated) {
            /**
             * Go To Application now
+            * after check validation
             */
         }
         return validated;

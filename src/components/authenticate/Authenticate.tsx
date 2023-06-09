@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { get, isValidValue, logger, replaceErrorWithOk } from "../../helpers/functions";
-import { Mnemonic, Wordlist, ethers } from "ethers";
 import { WORDS } from "./words";
 
 export default function SignIn () {
