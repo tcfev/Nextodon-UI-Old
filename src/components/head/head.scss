@@ -1,0 +1,48 @@
+.head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0;
+    height: fit-content;
+
+    &-row-1 {
+        gap: 10px;
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        flex-wrap: wrap;
+        height: fit-content;
+
+        &-col-1 {
+            height: 40px;
+            width: 40px;
+
+            &-logo {
+                height: 100%;
+            }
+        }
+
+        &-col-2 {
+            display: inline;
+            width: fit-content;
+            flex-direction: column;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    }
+
+    &-row-2 {
+        text-align: center;
+        height: fit-content;
+    }
+}
+
+// @media (orientation: portrait) {
+//     .head {
+//         justify-content: space-around;
+
+//         &-row-1 {
+//             flex-wrap: wrap;
+//         }
+//     }
+// }

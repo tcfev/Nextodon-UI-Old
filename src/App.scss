@@ -1,0 +1,68 @@
+@import './components/head/head.scss';
+@import './components/navigation/navigation.scss';
+@import './components/index/index.scss';
+@import './components/authenticate/authenticate.scss';
+@import './components/generate/generate.scss';
+@import './components/generate/components/verify-content/verifycontent.scss';
+@import './components/generate/components/done-content/donecontent.scss';
+@import './components/loading/loading.scss';
+@import './components/popup/popup.scss';
+
+.App {
+    height: 94%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: 0 0 2px 1px #eaeaea;
+    border-radius: 0.3rem;
+}
+
+::placeholder {
+    opacity: 0.5;
+    text-align: justify;
+}
+
+textarea, input {
+    border: 1px solid #d2d2d2 !important;
+    border-radius: 0.3rem;
+
+    &:focus, &:hover {
+        outline-color: #6a00ff;
+    }
+}
+
+textarea.error,
+input.error {
+    border-color: rgb(255, 96, 109) !important;
+    background-color: rgba(255, 216, 216, 0.115);
+    outline-color: rgb(255, 96, 109) !important;
+}
+
+textarea.ok,
+input.ok {
+    border-color: rgb(0, 194, 116) !important;
+    background-color: white;
+    outline-color:rgb(0, 194, 116) !important;
+}
+
+@media (orientation: portrait) {
+    .App {
+        height: 94%;
+        max-width: 400px;
+        min-width: 400px;
+    }
+}
+
+@media (orientation: landscape) {
+    #root {
+        width: 100%;
+    }
+    .App {
+        width: 98%;
+        max-width: 600px;
+        height: 94%;
+        padding: 3px;
+    }
+}

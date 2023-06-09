@@ -1,0 +1,46 @@
+div.loading-spinner {
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    min-height: 100% !important;
+    height: 100% !important;
+    width: 100% !important; 
+    text-align: center !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    position: fixed !important;
+    top:0;
+    left:0;
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+
+    > span {
+        width: 40px !important;
+        height: 40px !important;
+        display: block !important;
+        margin: auto !important;
+        border: 5px dashed rgb(53, 35, 255) !important;
+        border-radius: 100% !important;
+        background-color: transparent !important;
+
+        animation-name: waiting;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+}
+
+
+
+@keyframes waiting {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

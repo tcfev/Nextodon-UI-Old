@@ -1,0 +1,21 @@
+.navigation {
+    gap: 5px;
+    width: 100%;
+    height: 10px;
+    min-height: 10px;
+    display: flex;
+    justify-content: center;
+
+    &-link {
+        width: 5%;
+        height: 100%;
+        display: block;
+        background-color: rgb(200, 200, 200);
+        border-radius: 1rem;
+
+        &.active {
+            width: 15%;
+            background-color: #2792db;
+        }
+    }
+}
