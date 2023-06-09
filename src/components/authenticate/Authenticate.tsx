@@ -11,6 +11,11 @@ export default function SignIn () {
     const [valStart, setValStart] = useState(0);
     const [valEnd, setValEnd] = useState(0);
 
+    /**
+     * Makes suggestion list top of mnemonic input element
+     * on authenticate page
+     * @param value 
+     */
     const suggestion = (value: string) => {
         setSearchVal(value);
         setSuggestionList([]);
@@ -18,14 +23,40 @@ export default function SignIn () {
             setSuggestionList(WORDS.filter(w => w.startsWith(value)));
     }
 
+    /**
+     * Checks if mnemonic phrase includes 12 words
+     * @param value 
+     * @returns boolan
+     */
+    const isMnemonicComplete = (value: string) : boolean => {
+        return value.trim().split(' ').length === 12;
+    }
+
+    /**
+     * Check publicKey validate
+     * not yet completed
+     * @param mnemonicPhrase 
+     * @param password 
+     */
     const authenticate = async (mnemonicPhrase: string, password: string) => {
         logger('Authentication Started');
 
         /**
          * Fetch endpoint
+         * Check authentication
+         * 
+         * 
+         * 
+         * 
          */
     }
 
+
+    /**
+     * Handles form on submit from continue button
+     * on authenticate page
+     * @param event 
+     */
     const getDigitalIdentity = (event: any) => {
         event.preventDefault();
 
@@ -40,7 +71,7 @@ export default function SignIn () {
             event.target.elements.password.value.length > 0) {
 
             /**
-             * Authenticate now
+             * call authenticate now
              */
             authenticate(phrase, password);
 
@@ -73,7 +104,8 @@ export default function SignIn () {
                                         const beforeValue = phraseTextarea.value.substring(0, valStart);
                                         const afterValue = phraseTextarea.value.substring(valEnd);
                                         const appendedContent = beforeValue.concat(e.currentTarget.getAttribute('content'))
-                                                                           .concat(afterValue);
+                                                                           .concat(afterValue.length === 0 ? afterValue.concat(' ') : afterValue);
+                                   
                                         setPhrase(appendedContent);
                                         suggestion('');
                             
@@ -95,7 +127,8 @@ export default function SignIn () {
                     onInput={
                         (event: any) => {
                             const valueStart = event.target.value.lastIndexOf(' ', event.target.selectionStart - 1) + 1; //event.target.value.substring(event.target.value.lastIndexOf(' ', event.target.selectionStart - 1) + 1);
-                            const valueEnd = valueStart + event.target.value.substring(valueStart).indexOf(' ');
+                            const indexOfSpaceAfterStart = event.target.value.substring(valueStart).indexOf(' ');
+                            const valueEnd = valueStart + (indexOfSpaceAfterStart !== -1 ? indexOfSpaceAfterStart : event.target.value.substring(valueStart).length);
 
                             setValStart(valueStart);
                             setValEnd(valueEnd);
@@ -128,7 +161,7 @@ export default function SignIn () {
                 <button 
                     type="submit" 
                     className="btn"
-                    disabled={(phrase.length === 0)}
+                    disabled={!isMnemonicComplete(phrase)}
                 >Continue</button>
             </form>
         </div>
