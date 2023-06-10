@@ -41,7 +41,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
             words.length === WORD_LENGTH) {
             get('label[for="agreement-checkbox"]')?.classList.remove('error');
             logger('Form validation: OK');
-            props.setNavState(props.navState + 1 === 3 ? 0 : props.navState + 1);
+            props.setNavState(props.navState + 1 === 5 ? 0 : props.navState + 1);
             
             /*
                 create wallet + private/public-key
