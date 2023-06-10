@@ -1,5 +1,6 @@
 type NavigationProperties = {
-    state: number
+    state: number,
+    steps: number
 }
 export default function Navigation (props: NavigationProperties) {
     const setClassDependOnState = (state: number) : string => {
@@ -8,9 +9,11 @@ export default function Navigation (props: NavigationProperties) {
 
     return (
         <div className="navigation">
-            <span className={"navigation-link " + (setClassDependOnState(0))}></span>
-            <span className={"navigation-link " + (setClassDependOnState(1))}></span>
-            <span className={"navigation-link " + (setClassDependOnState(2))}></span>
+            {
+                Array.from(Array(props.steps).keys()).map(i => 
+                    <span key={i * 5} className={"navigation-link " + (setClassDependOnState(i))}></span>
+                )
+            }
         </div>
     );
 }

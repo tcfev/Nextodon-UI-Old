@@ -9,16 +9,43 @@ import VerifyContent from "./components/verify-content/VerifyContent";
 import DoneContent from "./components/done-content/DoneContent";
 import { selectPhrase } from "../../store/features/phrase/phraseSlice";
 import { useAppSelector } from "../../store/hooks";
-
+import ChoosePassphrase from "./components/choose-passphrase/ChoosePassphrase";
+import ConfirmPassphrase from "./components/confirm-passphrase/ConfirmPassphrase";
 
 
 export default function SignUp () {
     const [navigationState, setNavigationState] = useState(0);
     const generatedPhrase = useAppSelector(selectPhrase);
+    const NAVIGATION_STEP_COUNT = 5;
+    const [passPhrase, setPassphrase] = useState("");
+    const [confirmPassphrase, setConfirmPassphrase] = useState("");
 
     const getContent = (state: number) => {
         switch(state) {
             case 0:
+                return (
+                    <div>            
+                        <Header icon={false} title="Choose Passphrase" subtitle="Please choose a strong passphrase for your account."></Header>
+                        <ChoosePassphrase 
+                            navState={navigationState}
+                            setNavState={setNavigationState}
+                            setPassphrase={setPassphrase}
+                        ></ChoosePassphrase>
+                    </div>
+                );
+            case 1:
+                return (
+                    <div>            
+                        <Header icon={false} title="Confirm Passphrase" subtitle="Confirm your passphrase, if you choosed one."></Header>
+                        <ConfirmPassphrase 
+                            navState={navigationState}
+                            setNavState={setNavigationState}
+                            passPhrase={passPhrase}
+                            setConfirmPassphrase={setConfirmPassphrase}
+                        ></ConfirmPassphrase>
+                    </div>
+                );
+            case 2:
                 return (
                     <div>            
                         <Header icon={false} title="Generate Token" subtitle="Your mnemonic is your digital identity. It is important to keep it secure. Write it down on paper and store it in a safe location to prevent loss."></Header>
@@ -28,7 +55,7 @@ export default function SignUp () {
                         ></GenerateContent>
                     </div>
                 );
-            case 1: 
+            case 3: 
                 return (
                     <div>            
                         <Header icon={false} title="Verify Your Mnemonic" subtitle="Arrange your mnemonic in the correct order."></Header>
@@ -39,7 +66,7 @@ export default function SignUp () {
                         ></VerifyContent>
                     </div>
                 );
-            case 2: 
+            case 4: 
                 return (
                     <div>            
                         <Header icon={true} title="Done!" subtitle="Congratulations! Your digital identity is now secure. Your can now use your account and enjoy the freedom of speech. Please remember to keep your identity safe."></Header>
@@ -57,7 +84,7 @@ export default function SignUp () {
 
     return (
         <div className="signup">
-            <Navigation state={navigationState}></Navigation>
+            <Navigation state={navigationState} steps={NAVIGATION_STEP_COUNT}></Navigation>
             <div>
                 {getContent(navigationState)}
             </div>

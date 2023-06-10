@@ -14,12 +14,6 @@
             flex-wrap: wrap;
             gap: 10px;
 
-            > p {
-                text-align: center;
-                padding: 10px;
-            }
-
-
             > a {
                 display: block;
                 width: fit-content;
@@ -30,7 +24,7 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 text-decoration: none;
-                padding: 20px 10px;
+                padding: 20px 20px;
                 text-align: center;
                 border-radius: 1rem;
                 margin: 0 auto;

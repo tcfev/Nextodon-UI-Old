@@ -6,12 +6,10 @@ export default function Index () {
             <nav>
                 <ul>
                     <li>
-                        <p>Already a member?</p>
-                        <Link to="/authenticate">Authenticate</Link>
+                        <Link to="/authenticate">Already a member?</Link>
                     </li>
                     <li>
-                        <p>Become a member</p>
-                        <Link to="/generate">Generate</Link>
+                        <Link to="/generate">Become a member</Link>
                     </li>
                 </ul>
             </nav>

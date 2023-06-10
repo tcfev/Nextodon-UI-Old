@@ -26,7 +26,8 @@ export default function GenerateContent (props: GenerateContentProperties) {
     let words: string[] | undefined = generatedPhrase.phrase.value;
     const [isLoaded, setIsLoaded] = useState(false);
     const [popupIsHide, setPopupIsHide] = useState(true);
-
+    const [isPassphraseAdded, setIsPassphraseAdded] = useState(false);
+    const [isPassphraseConfirmed, setIsPassphraseConfirmed] = useState(false);
 
     /**
      * Handles form submit 
@@ -64,6 +65,10 @@ export default function GenerateContent (props: GenerateContentProperties) {
         const wallet = ethers.HDNodeWallet.createRandom("testPassword");
         const generatedPhrase = wallet.mnemonic ? wallet.mnemonic.phrase.split(' ') : [];
         
+        console.log(wallet.signMessage("testPassword"));
+        //0x27469ab23e971ac6753918c078545fc375d1bedc4bf8dfe3d15c75870c3868650e10c2f7c78f064884a9003ca007d499fc9b7839558adaeaf94b95c5ea0aa6be1b
+        
+
         /**
          * Not given passphrase
          */
@@ -82,6 +87,10 @@ export default function GenerateContent (props: GenerateContentProperties) {
         // privateKey: "0x4c19677486a98aaad12d6767bc254ee29145a5477e44f73d085221c9ca2f72a8"
         // privateKey: "0x4c19677486a98aaad12d6767bc254ee29145a5477e44f73d085221c9ca2f72a8"
 
+        /*
+            Public Key:
+            Random String Signed:
+        */
     
         if (generatedPhrase.length === 12) {
             const obj = {
@@ -154,11 +163,11 @@ export default function GenerateContent (props: GenerateContentProperties) {
                         <label htmlFor="agreement-checkbox" className={"signup-control-inputs-label"}>I have written down the mnemonic phrase.</label>
                     </div>
                     <div className="signup-content-control-btns">
-                        <Link 
+                        <button 
                             className="signup-content-control-btns-back" 
                             title="Go Main Page" 
-                            to="/"
-                        ></Link>
+                            onClick={() => props.setNavState(props.navState - 1)}
+                        ></button>
                         <button 
                             className="signup-content-control-btns-continue" 
                             type="submit" 
