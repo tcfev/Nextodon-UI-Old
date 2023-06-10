@@ -3,6 +3,8 @@ import {
     logger, 
     get,
     generateRandomWordsInElement,
+    hexToBytes,
+    login,
 } from "../../../../helpers/functions";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
@@ -59,9 +61,28 @@ export default function GenerateContent (props: GenerateContentProperties) {
      * to generate new phrase
      */
     const generatePhrase = async () => {
-        const wallet = ethers.HDNodeWallet.createRandom("test password but not worked");
+        const wallet = ethers.HDNodeWallet.createRandom("testPassword");
         const generatedPhrase = wallet.mnemonic ? wallet.mnemonic.phrase.split(' ') : [];
         
+        /**
+         * Not given passphrase
+         */
+        // publicKey: "0x02c5c6c454e05a7d14b69f2158847de04325bea08ddaaa860a1ee34824459d012c"
+        // publicKey: "0x037daea1636614c0d40e8b1337e3d045cb7c14ba2fe83a77677c65cdab1980d2dd"
+        
+        // privateKey: "0x650bba5ac53821c0aa086b1e0fbb97e117363e9cbe59de7643fcb6e800d89bfd"
+        // privateKey: "0x93a070fc1aca56fcb85fb2feb0d6c66208d3f7a825fe026f2ca224c74e7f184d"
+
+        /**
+         * With correct phasphrase
+         */
+        // publicKey: "0x02f4fe786f899c35ad1a5b11be6058cd70c530e8f3185ab8a7f5a932ef39aec74d"
+        // publicKey: "0x02f4fe786f899c35ad1a5b11be6058cd70c530e8f3185ab8a7f5a932ef39aec74d"
+        
+        // privateKey: "0x4c19677486a98aaad12d6767bc254ee29145a5477e44f73d085221c9ca2f72a8"
+        // privateKey: "0x4c19677486a98aaad12d6767bc254ee29145a5477e44f73d085221c9ca2f72a8"
+
+    
         if (generatedPhrase.length === 12) {
             const obj = {
                 address: wallet.address,
@@ -74,7 +95,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
             if (wallet.mnemonic)
                 logger(
                     wallet.privateKey,
-                    ethers.HDNodeWallet.fromMnemonic(Mnemonic.fromPhrase(wallet.mnemonic?.phrase, "test password but not worked")).privateKey
+                    HDNodeWallet.fromPhrase(wallet.mnemonic?.phrase, "testPassword").privateKey
                 );
 
             if (words !== undefined)

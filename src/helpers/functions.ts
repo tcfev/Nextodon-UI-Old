@@ -1,5 +1,6 @@
+import { ethers } from 'ethers';
 import { Color } from './classes';
-const DEBUG:boolean = false;
+const DEBUG:boolean = true;
 
 /**
  * Checks if is the value on given target after form submit
@@ -102,7 +103,7 @@ export function randomize (array: any[]) : any[] {
     const newArray: any[] = [];
     let securityCounter = 0;
     while (newArray.length !== array.length) {
-        const item: any = array[Math.ceil(Math.random() * 12) - 1];
+        const item: any = array[Math.floor(Math.random() * 12)];
         if (newArray.findIndex((el) => el === item) === -1)
             newArray.push(item)
 
@@ -151,3 +152,57 @@ export function getNumericOrderedWords(words: string[]) {
     return orderedWords;
 }
 
+//------------------- from old login -------------------------
+
+export function hexToBytes(hexValue: string): number[] {
+    let bytes = [];
+    for (let c = 0; c < hexValue.length; c += 2) {
+        bytes.push(parseInt(hexValue.substring(c, 2), 16));
+    }
+    return bytes;
+}
+
+export function postData(url: string, data: any): Promise<Response> {
+    const response = fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+    return response;
+}
+
+export async function login(mnemonic: string): Promise<string | null> {
+    const mnemonicObject = ethers.Mnemonic.fromPhrase(mnemonic);
+    const node = ethers.HDNodeWallet.fromMnemonic(mnemonicObject);
+    const wallet = node.derivePath("m/44'/60'/0'/0/0");
+    const digest = ethers.sha256(wallet.publicKey);
+    const signingKey = new ethers.SigningKey(wallet.privateKey);
+    const signature = signingKey.sign(digest);
+    const r = hexToBytes(signature.r.substring(2));
+    const s = hexToBytes(signature.s.substring(2));
+
+    const signatureBytes = [0x30, 0x44, 0x02, 0x20];
+    signatureBytes.push(...r);
+    signatureBytes.push(...[0x02, 0x20]);
+    signatureBytes.push(...s);
+
+    const publicKeyBytes = hexToBytes(wallet.publicKey.substring(2));
+
+    const sig = Uint8Array.from(signatureBytes);
+    const pub = Uint8Array.from(publicKeyBytes);
+
+    const signature64 = ethers.encodeBase64(sig);
+    const publicKey64 = ethers.encodeBase64(pub);
+
+    const response = await postData("/api/v1/authentication/signin", {
+        signature: signature64,
+        publicKey: publicKey64,
+    });
+    console.log(signature64,publicKey64)
+    const result = await response.json();
+
+    return result.value;
+}
+//--------------------------------------------------
