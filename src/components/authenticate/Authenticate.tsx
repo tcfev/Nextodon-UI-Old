@@ -142,6 +142,7 @@ export default function SignIn () {
                     }
                     className="phrase-textarea"
                     value={phrase}
+                    autoComplete="off"
                 ></textarea>
                 <input 
                     name="password" 
@@ -156,6 +157,7 @@ export default function SignIn () {
                             }
                         }
                     }
+                    autoComplete="off"
                 />
                 <button 
                     type="submit" 
