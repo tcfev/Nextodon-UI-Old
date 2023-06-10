@@ -16,6 +16,7 @@ import PopUp from "../../../popup/PopUp";
 type GenerateContentProperties = {
     navState: number,
     setNavState: (value:number) => void,
+    passphrase: string
 }
 
 export default function GenerateContent (props: GenerateContentProperties) {
@@ -26,8 +27,6 @@ export default function GenerateContent (props: GenerateContentProperties) {
     let words: string[] | undefined = generatedPhrase.phrase.value;
     const [isLoaded, setIsLoaded] = useState(false);
     const [popupIsHide, setPopupIsHide] = useState(true);
-    const [isPassphraseAdded, setIsPassphraseAdded] = useState(false);
-    const [isPassphraseConfirmed, setIsPassphraseConfirmed] = useState(false);
 
     /**
      * Handles form submit 
@@ -61,11 +60,11 @@ export default function GenerateContent (props: GenerateContentProperties) {
      * Handles click on regenrate button
      * to generate new phrase
      */
-    const generatePhrase = async () => {
-        const wallet = ethers.HDNodeWallet.createRandom("testPassword");
+    const generatePhrase = async (passphrase:string) => {
+        const wallet = ethers.HDNodeWallet.createRandom(passphrase);
         const generatedPhrase = wallet.mnemonic ? wallet.mnemonic.phrase.split(' ') : [];
         
-        console.log(wallet.signMessage("testPassword"));
+        console.log(wallet.signMessage(passphrase));
         //0x27469ab23e971ac6753918c078545fc375d1bedc4bf8dfe3d15c75870c3868650e10c2f7c78f064884a9003ca007d499fc9b7839558adaeaf94b95c5ea0aa6be1b
         
 
@@ -104,7 +103,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
             if (wallet.mnemonic)
                 logger(
                     wallet.privateKey,
-                    HDNodeWallet.fromPhrase(wallet.mnemonic?.phrase, "testPassword").privateKey
+                    HDNodeWallet.fromPhrase(wallet.mnemonic?.phrase, passphrase).privateKey
                 );
 
             if (words !== undefined)
@@ -129,7 +128,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
             <div className="signup-content-phrase">
                 {
                     !isLoaded
-                    ? <Loading after={1} phraseCallback={generatePhrase}></Loading>
+                    ? <Loading after={1} phraseCallback={() => {generatePhrase(props.passphrase);}}></Loading>
                     : ''
                 }
                 <div className="signup-content-phrase-generation" id="phrase-generation">

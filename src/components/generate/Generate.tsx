@@ -52,6 +52,7 @@ export default function SignUp () {
                         <GenerateContent 
                             navState={navigationState}
                             setNavState={setNavigationState}
+                            passphrase={confirmPassphrase}
                         ></GenerateContent>
                     </div>
                 );
