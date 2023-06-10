@@ -18,16 +18,19 @@ export default function ConfirmPassphrase (props: ConfirmPassphraseProperties) {
     return (
         <div className="confirm-passphrase-content">
             <div className="confirm-passphrase-content-phrase">
-                <input 
-                    type="password" 
-                    name="confirm-passphrase" 
-                    placeholder="Confirm passphrase or leave empty"
-                    onInput={(e:any) => {
-                        props.setConfirmPassphrase(e.target.value);
-                        setConfirmPhrase(e.target.value);
-                        console.log(e.target.value.match(confirmPhrase));
-                    }}
-                />
+                <form>
+                    <input 
+                        type="password" 
+                        name="confirm-passphrase" 
+                        placeholder="Confirm passphrase or leave empty"
+                        onInput={(e:any) => {
+                            props.setConfirmPassphrase(e.target.value);
+                            setConfirmPhrase(e.target.value);
+                            console.log(e.target.value.match(confirmPhrase));
+                        }}
+                        autoComplete="off"
+                    />
+                </form>
             </div>
             <div className="confirm-passphrase-content-control">
                 <div className="confirm-passphrase-content-control-btns">

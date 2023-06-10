@@ -11,14 +11,17 @@ export default function ChoosePassphrase (props: ChoosePassphraseProperties) {
     return (
         <div className="choose-passphrase-content">
             <div className="choose-passphrase-content-phrase">
-                <input 
-                    type="password" 
-                    name="choose-passphrase" 
-                    placeholder="Choose passphrase or leave empty"
-                    onInput={(e:any) => {
-                        props.setPassphrase(e.target.value);
-                    }}
-                />
+                <form>
+                    <input 
+                        type="password" 
+                        name="choose-passphrase" 
+                        placeholder="Choose passphrase or leave empty"
+                        onInput={(e:any) => {
+                            props.setPassphrase(e.target.value);
+                        }}
+                        autoComplete="off"
+                    />
+                </form>
             </div>
             <div className="choose-passphrase-content-control">
                 <div className="choose-passphrase-content-control-btns">
