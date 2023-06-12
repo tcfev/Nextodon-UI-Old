@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { get, isValidValue, logger, replaceErrorWithOk } from "../../helpers/functions";
+import { get, isValidValue, logger, login, replaceErrorWithOk } from "../../helpers/functions";
 import { WORDS } from "./words";
+import { HDNodeWallet } from "ethers";
 
 export default function SignIn () {
     const [phrase, setPhrase] = useState("");
@@ -40,14 +41,9 @@ export default function SignIn () {
     const authenticate = async (mnemonicPhrase: string, password: string) => {
         logger('Authentication Started');
 
-        /**
-         * Fetch endpoint
-         * Check authentication
-         * 
-         * 
-         * 
-         * 
-         */
+        // call login function from old implementation
+        const token: string | null = await login(mnemonicPhrase, password);
+        logger(token);
     }
 
 

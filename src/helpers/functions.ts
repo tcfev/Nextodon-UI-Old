@@ -173,8 +173,8 @@ export function postData(url: string, data: any): Promise<Response> {
     return response;
 }
 
-export async function login(mnemonic: string): Promise<string | null> {
-    const mnemonicObject = ethers.Mnemonic.fromPhrase(mnemonic);
+export async function login(mnemonic: string, passPhrase: string): Promise<string | null> {
+    const mnemonicObject = ethers.Mnemonic.fromPhrase(mnemonic, passPhrase);
     const node = ethers.HDNodeWallet.fromMnemonic(mnemonicObject);
     const wallet = node.derivePath("m/44'/60'/0'/0/0");
     const digest = ethers.sha256(wallet.publicKey);
@@ -200,9 +200,7 @@ export async function login(mnemonic: string): Promise<string | null> {
         signature: signature64,
         publicKey: publicKey64,
     });
-    console.log(signature64,publicKey64)
     const result = await response.json();
-
     return result.value;
 }
 //--------------------------------------------------
