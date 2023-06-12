@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { get, isValidValue, logger, login, replaceErrorWithOk } from "../../helpers/functions";
 import { WORDS } from "./words";
-import { HDNodeWallet } from "ethers";
 
 export default function SignIn () {
     const [phrase, setPhrase] = useState("");
