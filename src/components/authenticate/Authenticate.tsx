@@ -23,7 +23,7 @@ export default function SignIn (props: SignInProps) {
     const suggestion = (value: string) => {
         setSearchVal(value);
         setSuggestionList([]);
-        if (value.length >= 0)
+        if (value.length > 0)
             setSuggestionList(WORDS.filter(w => w.startsWith(value.toLowerCase())));
     }
 
