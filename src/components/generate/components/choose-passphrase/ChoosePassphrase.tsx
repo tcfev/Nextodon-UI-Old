@@ -9,29 +9,31 @@ type ChoosePassphraseProperties = {
 
 export default function ChoosePassphrase (props: ChoosePassphraseProperties) {
     return (
-        <div className="choose-passphrase-content">
-            <div className="choose-passphrase-content-phrase">
-                <form>
-                    <input 
-                        type="password" 
-                        name="choose-passphrase" 
-                        placeholder="Choose passphrase or leave empty"
-                        onInput={(e:any) => {
-                            props.setPassphrase(e.target.value);
-                        }}
-                        autoComplete="off"
-                    />
-                </form>
+        <>
+            <div className="card-body">
+                <div className="row">
+                    <form className="col">
+                        <input 
+                            type="password" 
+                            name="choose-passphrase" 
+                            placeholder="Choose passphrase or leave empty"
+                            onInput={(e:any) => {
+                                props.setPassphrase(e.target.value);
+                            }}
+                            autoComplete="off"
+                        />
+                    </form>
+                </div>
             </div>
-            <div className="choose-passphrase-content-control">
-                <div className="choose-passphrase-content-control-btns">
-                    <Link 
-                        className="choose-passphrase-content-control-btns-back" 
-                        title="Go Main Page" 
-                        to="/"
-                    ></Link>
+            <div className="card-footer">
+                <div className="row gap-2 p-2">
                     <button 
-                        className="choose-passphrase-content-control-btns-continue" 
+                        className="col btn btn-secondary" 
+                        title="Go Main Page" 
+                        // to="/"
+                    ></button>
+                    <button 
+                        className="col btn btn-primary" 
                         type="submit" 
                         title="Continue"
                         disabled={false}
@@ -39,6 +41,6 @@ export default function ChoosePassphrase (props: ChoosePassphraseProperties) {
                     >Continue</button>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

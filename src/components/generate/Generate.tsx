@@ -84,11 +84,11 @@ export default function SignUp () {
     useEffect(() => {}, []);
 
     return (
-        <div className="signup">
-            <Navigation state={navigationState} steps={NAVIGATION_STEP_COUNT}></Navigation>
-            <div>
-                {getContent(navigationState)}
+        <div className="card">
+            <div className="card-header p-3">
+                <Navigation state={navigationState} steps={NAVIGATION_STEP_COUNT}></Navigation>
             </div>
+            {getContent(navigationState)}
         </div>
     );
 }
