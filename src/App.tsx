@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './App.scss';
 import Authenticate from './components/authenticate/Authenticate';
 import Generate from './components/generate/Generate';
 
@@ -38,22 +37,22 @@ function App() {
   return (
     <div className="App container h-100 w-100 d-flex flex-column justify-content-center py-5" onContextMenu={handleOnContextMenu}>
       <div className='col-lg-6 col-md-8 col-sm-10 mx-auto'>
-        <h1 className="col font-weight-bold text-center mb-5 text-primary">
+        <h1 className="col fw-bold text-center mb-5 text-primary">
           NEXTODON
         </h1>
         {showingComponent}
         {
           showingComponent === undefined
           ?
-          <div className='row gap-2 p-1'>
+          <div className='row gap-2 p-1 m-auto justify-content-center'>
             <button 
               id="signin"
-              className='col btn btn-secondary'
+              className='col-auto btn btn-secondary'
               onClick={()=> goTo('SIGNIN')}
             >Already a member?</button>
             <button 
               id="signup"
-              className='col btn btn-secondary'
+              className='col-auto btn btn-secondary'
               onClick={()=> goTo('SIGNUP')}
             >Become a member</button>
           </div>

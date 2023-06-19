@@ -26,60 +26,60 @@ export default function SignUp (props:SignUpProps) {
     const getContent = (state: number) => {
         switch(state) {
             case 0:
-                return (
-                    <div>            
-                        <Header icon={false} title="Choose Passphrase" subtitle="Please choose a strong passphrase for your account."></Header>
-                        <ChoosePassphrase 
-                            navState={navigationState}
-                            setNavState={setNavigationState}
-                            setPassphrase={setPassphrase}
-                            goBack={props.goBack}
-                        ></ChoosePassphrase>
-                    </div>
+                return (       
+                    <ChoosePassphrase 
+                        navState={navigationState}
+                        setNavState={setNavigationState}
+                        setPassphrase={setPassphrase}
+                        goBack={props.goBack}
+                        icon={false} 
+                        title="Choose Passphrase" 
+                        subtitle="Please choose a strong passphrase for your account."
+                    ></ChoosePassphrase>
                 );
             case 1:
                 return (
-                    <div>            
-                        <Header icon={false} title="Confirm Passphrase" subtitle="Confirm your passphrase, if you choosed one."></Header>
-                        <ConfirmPassphrase 
-                            navState={navigationState}
-                            setNavState={setNavigationState}
-                            passPhrase={passPhrase}
-                            setConfirmPassphrase={setConfirmPassphrase}
-                        ></ConfirmPassphrase>
-                    </div>
+                    <ConfirmPassphrase 
+                        navState={navigationState}
+                        setNavState={setNavigationState}
+                        passPhrase={passPhrase}
+                        setConfirmPassphrase={setConfirmPassphrase}
+                        icon={false} 
+                        title="Confirm Passphrase" 
+                        subtitle="Confirm your passphrase, if you choosed one."
+                    ></ConfirmPassphrase>
                 );
             case 2:
                 return (
-                    <div>            
-                        <Header icon={false} title="Generate Token" subtitle="Your mnemonic is your digital identity. It is important to keep it secure. Write it down on paper and store it in a safe location to prevent loss."></Header>
-                        <GenerateContent 
-                            navState={navigationState}
-                            setNavState={setNavigationState}
-                            passphrase={confirmPassphrase}
-                        ></GenerateContent>
-                    </div>
+                    <GenerateContent 
+                        navState={navigationState}
+                        setNavState={setNavigationState}
+                        passphrase={confirmPassphrase}
+                        icon={false} 
+                        title="Generate Token" 
+                        subtitle="Your mnemonic is your digital identity. It is important to keep it secure. Write it down on paper and store it in a safe location to prevent loss."
+                    ></GenerateContent>
                 );
             case 3: 
-                return (
-                    <div>            
-                        <Header icon={false} title="Verify Your Mnemonic" subtitle="Arrange your mnemonic in the correct order."></Header>
-                        <VerifyContent
-                          navState={navigationState}
-                          setNavState={setNavigationState}
-                          randomWords={randomize(generatedPhrase.phrase.value)}
-                        ></VerifyContent>
-                    </div>
+                return (        
+                    <VerifyContent
+                        navState={navigationState}
+                        setNavState={setNavigationState}
+                        randomWords={randomize(generatedPhrase.phrase.value)}
+                        icon={false} 
+                        title="Verify Your Mnemonic" 
+                        subtitle="Arrange your mnemonic in the correct order."
+                    ></VerifyContent>
                 );
             case 4: 
                 return (
-                    <div>            
-                        <Header icon={true} title="Done!" subtitle="Congratulations! Your digital identity is now secure. Your can now use your account and enjoy the freedom of speech. Please remember to keep your identity safe."></Header>
-                        <DoneContent
-                            navState={navigationState}
-                            setNavState={setNavigationState}
-                        ></DoneContent>
-                    </div>
+                    <DoneContent
+                        navState={navigationState}
+                        setNavState={setNavigationState}
+                        icon={true}
+                        title="Done!"
+                        subtitle="Congratulations! Your digital identity is now secure. Your can now use your account and enjoy the freedom of speech. Please remember to keep your identity safe."
+                    ></DoneContent>
                 );
             default: break;
         }

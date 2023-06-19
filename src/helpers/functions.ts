@@ -123,16 +123,39 @@ export function randomize (array: any[]) : any[] {
 export function generateRandomWordsInElement (wordBox: any, words: string[]) {
     if (wordBox !== null && wordBox !== undefined) {
         wordBox.innerText = '';
+
+        let column = create("div");
+
         words.forEach((word: string, index: number) => {
+          
             const wordFrame: HTMLElement = create('div');
+            wordFrame.className = 'row gap-2 border rounded mb-1';
+            
             const wordNumber: HTMLElement = create('span');
-            const wordEelement: HTMLElement = create('span');
             wordNumber.textContent = String(index + 1);
             wordNumber.style.backgroundColor = Color.getRandom();
+            wordNumber.className = 'col-auto p-1';
+            
+            const wordEelement: HTMLElement = create('span');
             wordEelement.textContent = word;
+            wordEelement.className = 'col-auto p-1';
+            
             wordFrame.appendChild(wordNumber);
             wordFrame.appendChild(wordEelement);
-            wordBox.appendChild(wordFrame);
+        
+
+            if (index % 4 !== 0) {
+                console.log(index);
+                column.appendChild(wordFrame);
+
+            } else if (index % 4 === 0) {
+                console.log(index);
+                column = create("div");
+                column.className = 'col';
+                column.appendChild(wordFrame);
+
+                wordBox.appendChild(column);
+            }
         });
         logger('PhraseBox regenerated');
     }

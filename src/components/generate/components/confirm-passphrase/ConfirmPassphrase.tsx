@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 
 type ConfirmPassphraseProperties = {
     navState: number,
     setNavState: (value:number) => void,
     passPhrase: string,
     setConfirmPassphrase: (value:string) => void,
+    icon: boolean
+    title: string,
+    subtitle: string
 }
 
 export default function ConfirmPassphrase (props: ConfirmPassphraseProperties) {
@@ -16,11 +20,29 @@ export default function ConfirmPassphrase (props: ConfirmPassphraseProperties) {
     }
 
     return (
-        <div className="confirm-passphrase-content">
-            <div className="confirm-passphrase-content-phrase">
+        <>
+            <div className="card-body">
+                <div className="row">
+                    {
+                        props.icon
+                        ?
+                        <figure className="signup-head-icon-frame">
+                            <img className="signup-head-icon-frame-image" src={require('./../../../../assets/media/firework.png')} alt="ForDem"></img>
+                        </figure>
+                        :
+                        ''
+                    }
+                    <h3 className="mb-5 fw-bold">
+                        {props.title}
+                    </h3>
+                    <p>
+                    {props.subtitle}
+                    </p>
+                </div>
                 <form>
                     <input 
                         type="password" 
+                        className="p-2 col-12 mb-3"
                         name="confirm-passphrase" 
                         placeholder="Confirm passphrase or leave empty"
                         onInput={(e:any) => {
@@ -32,15 +54,15 @@ export default function ConfirmPassphrase (props: ConfirmPassphraseProperties) {
                     />
                 </form>
             </div>
-            <div className="confirm-passphrase-content-control">
-                <div className="confirm-passphrase-content-control-btns">
+            <div className="card-footer">
+                <div className="row gap-2 p-2">
                     <button 
-                        className="confirm-passphrase-content-control-btns-back" 
+                        className="col btn btn-secondary p-0" 
                         title="Go Main Page" 
                         onClick={() => props.setNavState(props.navState - 1)}
-                    ></button>
+                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button>
                     <button 
-                        className="confirm-passphrase-content-control-btns-continue" 
+                        className="col btn btn-primary" 
                         type="submit" 
                         title="Continue"
                         {...(isMatch()  && { 
@@ -49,6 +71,6 @@ export default function ConfirmPassphrase (props: ConfirmPassphraseProperties) {
                     >Continue</button>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

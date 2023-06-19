@@ -12,11 +12,16 @@ import { selectPhrase, setPhrase } from "../../../../store/features/phrase/phras
 import { HDNodeWallet, Mnemonic, ethers } from "ethers";
 import Loading from "../../../loading/Loading";
 import PopUp from "../../../popup/PopUp";
+import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
+import { BiRefresh } from "react-icons/bi";
 
 type GenerateContentProperties = {
     navState: number,
     setNavState: (value:number) => void,
-    passphrase: string
+    passphrase: string,
+    icon: boolean
+    title: string,
+    subtitle: string
 }
 
 export default function GenerateContent (props: GenerateContentProperties) {
@@ -119,65 +124,82 @@ export default function GenerateContent (props: GenerateContentProperties) {
     useEffect(() => {}, []);
 
     return (
-        <div className="signup-content">
+        <>
             {
                 popupIsHide
                 ? ''
                 : <PopUp message="Do you want to regenerate?" yesCallback={setIsLoaded} noCallback={setPopupIsHide}></PopUp>
             }
-            <div className="signup-content-phrase">
+            <div className="card-body">
                 {
                     !isLoaded
                     ? <Loading after={1} phraseCallback={() => {generatePhrase(props.passphrase);}}></Loading>
                     : ''
                 }
-                <div className="signup-content-phrase-generation" id="phrase-generation">
+                <div className="row">
+                    {
+                        props.icon
+                        ?
+                        <figure className="signup-head-icon-frame">
+                            <img className="signup-head-icon-frame-image" src={require('./../../../../assets/media/firework.png')} alt="ForDem"></img>
+                        </figure>
+                        :
+                        ''
+                    }
+                    <h3 className="mb-5 fw-bold">
+                        {props.title}
+                    </h3>
+                    <p>
+                    {props.subtitle}
+                    </p>
+                </div>
+                <div className="row d-flex gap-1 mb-5 p-2" id="phrase-generation">
                     
                 </div>
-                <div className="signup-content-phrase-tool">
+                <div className="row">
                     <button 
-                        className="signup-content-phrase-tool-regenerate-btn" 
+                        className="btn btn-info text-light col-4 m-auto" 
                         title="Regenarates the words"
                         onClick={() => {
                             setPopupIsHide(false);
                         }}
                     >
-                        <span className="signup-content-phrase-tool-regenerate-btn-text">Regenerate</span>
-                        <figure className="signup-content-phrase-tool-regenerate-btn-icon">
-                            <img className="signup-content-phrase-tool-regenerate-btn-icon-image" src={require('./../../../../assets/media/refresh.png')} alt="Refresh"></img>
-                        </figure>
+                        Regenerate <span><BiRefresh size={25}></BiRefresh></span>
                     </button>
                 </div>
+                <div className="row p-2 mt-5">
+                    <form method="post" onSubmit={handleFormSubmit} id="written-form">
+                        <div className="form-check">
+                            <input 
+                                className="form-check-input" 
+                                type="checkbox" 
+                                id="agreement-checkbox" 
+                                name="agreement" 
+                                onClick={(e) => setWritten(!isWritten)}
+                            />
+                            <label htmlFor="agreement-checkbox" className="form-check-label">I have written down the mnemonic phrase.</label>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div className="signup-content-control">
-                <form method="post" onSubmit={handleFormSubmit}>
-                    <div className="signup-content-control-inputs">
-                        <input 
-                            className="signup-content-control-inputs-checkbox" 
-                            type="checkbox" 
-                            id="agreement-checkbox" 
-                            name="agreement" 
-                            onClick={(e) => setWritten(!isWritten)}
-                        />
-                        <label htmlFor="agreement-checkbox" className={"signup-control-inputs-label"}>I have written down the mnemonic phrase.</label>
-                    </div>
-                    <div className="signup-content-control-btns">
-                        <button 
-                            className="signup-content-control-btns-back" 
-                            title="Go Main Page" 
-                            onClick={() => props.setNavState(props.navState - 1)}
-                        ></button>
-                        <button 
-                            className="signup-content-control-btns-continue" 
-                            type="submit" 
-                            title="Continue"
-                            disabled={(
-                                words === undefined || (words !== undefined && words.length !== WORD_LENGTH) || !isWritten
-                            )}
-                        >Continue</button>
-                    </div>
-                </form>
+            <div className="card-footer">
+                <div className="row gap-2 p-2">
+                    <button 
+                        className="col btn btn-secondary p-0" 
+                        title="Go Main Page" 
+                        onClick={() => props.setNavState(props.navState - 1)}
+                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button>
+                    <button 
+                        className="col btn btn-primary" 
+                        type="submit" 
+                        title="Continue"
+                        form="written-form"
+                        disabled={(
+                            words === undefined || (words !== undefined && words.length !== WORD_LENGTH) || !isWritten
+                        )}
+                    >Continue</button>
+                </div>
             </div>
-        </div>
+        </>
     );
 }

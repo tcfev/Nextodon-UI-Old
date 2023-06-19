@@ -5,8 +5,8 @@ type HeaderProperties = {
 }
 export default function Header (props: HeaderProperties) {
     return (
-        <div className="signup-head">
-            <div className="signup-head-icon">
+        <div className="row">
+            <div className="col">
                 {
                     props.icon
                     ?
@@ -16,7 +16,7 @@ export default function Header (props: HeaderProperties) {
                     :
                     ''
                 }
-                <h2 className="signup-head-title">
+                <h2 className="mb-5">
                     {props.title}
                 </h2>
             </div>

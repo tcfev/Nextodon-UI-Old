@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { get, isValidValue, logger, replaceErrorWithOk } from "../../helpers/functions";
 import { WORDS } from "./words";
+import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
 
 type SignInProps = {
     goBack: () => void
@@ -92,7 +93,7 @@ export default function SignIn (props: SignInProps) {
             </div>
 
             <div className="card-body">
-                <h3 className="mb-5">Sign in to your account</h3>
+                <h3 className="mb-5 fw-bold">Sign in to your account</h3>
                 <p className="row px-3">
                     Enter your mnemonic phrase to import your Digital Identity
                 </p>
@@ -178,10 +179,10 @@ export default function SignIn (props: SignInProps) {
                 <div className="row gap-2 p-2">
                     <button 
                         type="reset" 
-                        className="col btn btn-secondary"
+                        className="col btn btn-secondary p-0"
                         onClick={() => props.goBack()}
                         // disabled={!isMnemonicComplete(phrase)}
-                    >Back</button>
+                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button>
                     <button 
                         type="submit" 
                         className="col btn btn-primary"
