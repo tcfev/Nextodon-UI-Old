@@ -12,8 +12,11 @@ import { useAppSelector } from "../../store/hooks";
 import ChoosePassphrase from "./components/choose-passphrase/ChoosePassphrase";
 import ConfirmPassphrase from "./components/confirm-passphrase/ConfirmPassphrase";
 
+type SignUpProps = {
+    goBack: () => void
+}
 
-export default function SignUp () {
+export default function SignUp (props:SignUpProps) {
     const [navigationState, setNavigationState] = useState(0);
     const generatedPhrase = useAppSelector(selectPhrase);
     const NAVIGATION_STEP_COUNT = 5;
@@ -30,6 +33,7 @@ export default function SignUp () {
                             navState={navigationState}
                             setNavState={setNavigationState}
                             setPassphrase={setPassphrase}
+                            goBack={props.goBack}
                         ></ChoosePassphrase>
                     </div>
                 );

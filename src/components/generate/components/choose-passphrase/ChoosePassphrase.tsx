@@ -5,6 +5,7 @@ type ChoosePassphraseProperties = {
     navState: number,
     setNavState: (value:number) => void,
     setPassphrase: (value:string) => void,
+    goBack: () => void
 }
 
 export default function ChoosePassphrase (props: ChoosePassphraseProperties) {
@@ -30,7 +31,7 @@ export default function ChoosePassphrase (props: ChoosePassphraseProperties) {
                     <button 
                         className="col btn btn-secondary" 
                         title="Go Main Page" 
-                        // to="/"
+                        onClick={() => props.goBack()}
                     ></button>
                     <button 
                         className="col btn btn-primary" 

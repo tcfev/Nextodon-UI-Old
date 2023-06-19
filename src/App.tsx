@@ -16,9 +16,9 @@ function App() {
     setCurrentRoute(route);
 
     switch(route) {
-      case 'SIGNIN': setShowingComponent(<Authenticate goBack={goBack} ></Authenticate>);
+      case 'SIGNIN': setShowingComponent(<Authenticate goBack={goBack}></Authenticate>);
         break;
-      case 'SIGNUP': setShowingComponent(<Generate></Generate>);
+      case 'SIGNUP': setShowingComponent(<Generate goBack={goBack}></Generate>);
         break;
       default: break;
     }
