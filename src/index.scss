@@ -1,6 +1,3 @@
-@import "/src/components/navigation/navigation.scss";
-@import "/src/components/loading/loading.scss";
-
 * {
   user-select: none;
   -moz-user-select: none;
@@ -90,6 +87,74 @@ span.fs-6 {
   font-size: 12px !important;
 }
 
+div.loading-spinner {
+  margin: 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  min-height: 100% !important;
+  height: 100% !important;
+  width: 100% !important; 
+  text-align: center !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  position: fixed !important;
+  top:0;
+  left:0;
+  backdrop-filter: blur(16px);
+  z-index: 1000;
+
+  > span {
+      width: 60px !important;
+      height: 60px !important;
+      display: block !important;
+      margin: auto !important;
+      border: 5px dashed rgb(53, 35, 255) !important;
+      border-radius: 100% !important;
+      background-color: transparent !important;
+
+      animation-name: waiting;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+  }
+}
+
+
+@keyframes waiting {
+  0% {
+      transform: rotate(0deg);
+  }
+  50% {
+      transform: rotate(180deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.navigation {
+  gap: 5px;
+  width: 100%;
+  height: 10px;
+  min-height: 10px;
+  display: flex;
+  justify-content: center;
+
+  &-link {
+      width: 5%;
+      height: 100%;
+      display: block;
+      background-color: rgb(200, 200, 200);
+      border-radius: 1rem;
+
+      &.active {
+          width: 15%;
+          background-color: #2792db;
+      }
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html, body {
     background-color: #222;
@@ -109,7 +174,7 @@ span.fs-6 {
   div.card {
     background-color: #333;
     color: #efefef;
-    box-shadow: 0 0 5px 0.5px rgba(255, 255, 255, 0.17) !important;
+    box-shadow: 0 0 5px 0.5px rgba(255, 255, 255, 0.393) !important;
   }
 
   textarea, input {
@@ -149,6 +214,13 @@ span.fs-6 {
   textarea.error,
   input.error  {
     background-color: #222;
+  }
+
+
+  div.loading-spinner {
+    > span {
+      border: 5px dashed rgb(212, 255, 0) !important;
+    }
   }
 }
 
