@@ -27,7 +27,6 @@ export default function ConfirmPassphrase (props: ConfirmPassphraseProperties) {
                         props.icon
                         ?
                         <figure className="signup-head-icon-frame">
-                            <img className="signup-head-icon-frame-image" src={require('./../../../../assets/media/firework.png')} alt="ForDem"></img>
                         </figure>
                         :
                         ''

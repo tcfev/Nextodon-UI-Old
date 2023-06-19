@@ -58,7 +58,6 @@ export default function VerifyContent (props: VerifyContentProperties) {
                         props.icon
                         ?
                         <figure className="signup-head-icon-frame">
-                            <img className="signup-head-icon-frame-image" src={require('./../../../../assets/media/firework.png')} alt="ForDem"></img>
                         </figure>
                         :
                         ''
@@ -70,7 +69,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
                     {props.subtitle}
                     </p>
                 </div>
-                <div className="row pt-0 px-3 gap-1">
+                <div className="row pt-0 px-0 gap-1">
                     {
                         emptyPhrase.map((word: string, i: number) => {
                             if (i % 4 === 0) {
@@ -81,7 +80,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
                                         .map((w: string, j: number) => {
                                             return (
                                                 <div 
-                                                    className="row gap-2 border rounded mb-1" 
+                                                    className="row gap-1 border rounded mb-2" 
                                                     key={i+j}
                                                     onClick={(event: any) => {
                                                         if (emptyPhrase.findIndex(el => el === w) !== -1) {
@@ -95,8 +94,8 @@ export default function VerifyContent (props: VerifyContentProperties) {
                                                         }
                                                     }}
                                                 >
-                                                    <span className="col-2 bg-light rounded-start text-center p-0">{i+j+1}</span>
-                                                    <span className="col-auto">{w}</span>
+                                                    <span className="col-2 px-0 bg-light rounded-start text-center py-3 fs-6">{i+j+1}</span>
+                                                    <span className="col px-0 py-2 d-flex flex-column justify-content-center">{w}</span>
                                                 </div>
                                             )
                                         })
@@ -111,7 +110,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
                 <p className="row pt-5 pb-0 px-3">
                     Choose them in specific order.
                 </p>
-                <div className="row pt-0 px-3 gap-1 mb-5">
+                <div className="row pt-0 px-0 gap-1 mb-5">
                     {
                         props.randomWords.map((word: string, i: number) => {
                             if (i % 4 === 0) {
@@ -123,7 +122,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
                                             .map((w: string, j: number) => {
                                                 return (
                                                     <div 
-                                                        className="row gap-2 border rounded mb-1" 
+                                                        className="row gap-1 border rounded mb-2" 
                                                         key={i+j}
                                                         onClick={(event: any) => {
                                                             if (emptyPhrase.findIndex(el => el === w) === -1) {
@@ -135,8 +134,8 @@ export default function VerifyContent (props: VerifyContentProperties) {
                                                         }}
                                                         content={'PHRASE_'.concat(w)}
                                                     >
-                                                        <span className="col-2 bg-light rounded-start text-center p-0">{i+j+1}</span>
-                                                        <span className="col-auto">{w}</span>
+                                                        <span className="col-2 px-0 bg-light rounded-start text-center py-3 fs-6">?</span>
+                                                        <span className="col px-0 py-2  d-flex flex-column justify-content-center">{w}</span>
                                                     </div>
                                                 )
                                             })

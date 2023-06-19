@@ -23,8 +23,8 @@ export default function SignIn (props: SignInProps) {
     const suggestion = (value: string) => {
         setSearchVal(value);
         setSuggestionList([]);
-        if (value.length >= 2)
-            setSuggestionList(WORDS.filter(w => w.startsWith(value)));
+        if (value.length >= 0)
+            setSuggestionList(WORDS.filter(w => w.startsWith(value.toLowerCase())));
     }
 
     /**
@@ -99,18 +99,18 @@ export default function SignIn (props: SignInProps) {
                 </p>
                 <form 
                     method="post" 
-                    className="row gap-2 px-3"
+                    className="row gap-2 p-0 m-0"
                     onSubmit={getDigitalIdentity}
                 >
-                    <div className="col d-flex position-relative">
+                    <div className="col position-relative p-0 m-0">
                         <span className="glassy-left"></span>
-                        <div className="col-12 d-flex gap-2 overflow-y-scroll px-5 pb-3">
+                        <div className="d-flex w-auto overflow-y-auto gap-2 pb-3 px-5 mx-3">
                             {suggestionList && suggestionList.map((w, i) => 
                                 <div 
                                     className="border rounded py-0 px-2 border-info text-info"
                                     key={i * 5}
                                     onClick={(e: any) => {
-                                        const phraseTextarea: any = get('.phrase-textarea');
+                                        const phraseTextarea: any = get('#phrase-textarea');
                                         if (phraseTextarea !== null) {
                                             const beforeValue = phraseTextarea.value.substring(0, valStart);
                                             const afterValue = phraseTextarea.value.substring(valEnd);
@@ -152,12 +152,14 @@ export default function SignIn (props: SignInProps) {
                                 suggestion(event.target.value.substring(valueStart, valueEnd));
                             }
                         }
-                        className=""
+                        id="phrase-textarea"
+                        className="p-2"
                         rows={6}
                         value={phrase}
                         autoComplete="off"
                     ></textarea>
                     <input 
+                        className="p-2"
                         name="password" 
                         type="text" 
                         placeholder="Your password (optional)"

@@ -141,7 +141,6 @@ export default function GenerateContent (props: GenerateContentProperties) {
                         props.icon
                         ?
                         <figure className="signup-head-icon-frame">
-                            <img className="signup-head-icon-frame-image" src={require('./../../../../assets/media/firework.png')} alt="ForDem"></img>
                         </figure>
                         :
                         ''
@@ -153,12 +152,10 @@ export default function GenerateContent (props: GenerateContentProperties) {
                     {props.subtitle}
                     </p>
                 </div>
-                <div className="row d-flex gap-1 mb-5 p-2" id="phrase-generation">
-                    
-                </div>
-                <div className="row">
+                <div className="row d-flex gap-1 mb-2 py-2 px-0" id="phrase-generation"></div>
+                <div className="row p-0">
                     <button 
-                        className="btn btn-info text-light col-4 m-auto" 
+                        className="btn btn-info text-light col-6 mx-auto" 
                         title="Regenarates the words"
                         onClick={() => {
                             setPopupIsHide(false);
@@ -167,7 +164,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
                         Regenerate <span><BiRefresh size={25}></BiRefresh></span>
                     </button>
                 </div>
-                <div className="row p-2 mt-5">
+                <div className="row p-2 mt-4">
                     <form method="post" onSubmit={handleFormSubmit} id="written-form">
                         <div className="form-check">
                             <input 

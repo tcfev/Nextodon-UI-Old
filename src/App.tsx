@@ -35,7 +35,7 @@ function App() {
   },[])
 
   return (
-    <div className="App container h-100 w-100 d-flex flex-column justify-content-center py-5" onContextMenu={handleOnContextMenu}>
+    <div className="App container flex-column justify-content-center py-5" onContextMenu={handleOnContextMenu}>
       <div className='col-lg-6 col-md-8 col-sm-10 mx-auto'>
         <h1 className="col fw-bold text-center mb-5 text-primary">
           NEXTODON
