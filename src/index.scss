@@ -49,6 +49,7 @@ input.ok {
 
 
 .glassy-left {
+  backdrop-filter: blur(2px);
   position: absolute;
   z-index: 1000;
   height: calc(100% - 16px);
@@ -58,6 +59,7 @@ input.ok {
 }
 
 .glassy-right {
+  backdrop-filter: blur(2px);
   position: absolute;
   z-index: 1000;
   height: calc(100% - 16px);

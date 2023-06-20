@@ -168,11 +168,7 @@ export default function SignIn (props: SignInProps) {
                         placeholder="Your password (optional)"
                         onInput={
                             (event: any) => {
-                                if(isValidValue(event.target, event.target.value)){
-                                    setPassword(event.target.value);
-                                } else {
-                                    setPassword("");
-                                }
+                                setPassword(event.target.value);
                             }
                         }
                         autoComplete="off"
