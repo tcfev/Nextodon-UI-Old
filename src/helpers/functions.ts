@@ -133,7 +133,9 @@ export function generateRandomWordsInElement (wordBox: any, words: string[]) {
             
             const wordNumber: HTMLElement = create('span');
             wordNumber.textContent = String(index + 1);
-            wordNumber.style.backgroundColor = Color.getRandom();
+            const randomColor = Color.getRandom('22');
+            wordNumber.style.backgroundColor = randomColor;
+            wordNumber.style.borderRight = '1px solid ' + randomColor.substring(0, randomColor.length - 2) + 'FF';
             wordNumber.className = 'col-2 px-0 rounded-start text-center py-3 fs-6';
             
             const wordEelement: HTMLElement = create('span');
