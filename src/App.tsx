@@ -30,16 +30,16 @@ function App() {
   useEffect(() => {},[])
 
   return (
-    <div className="App container flex-column justify-content-center py-5" onContextMenu={handleOnContextMenu}>
-      <div className='col-lg-6 col-md-8 col-sm-10 mx-auto'>
-        <h1 className="col fw-bold text-center mb-5 text-primary">
+    <div className="App container flex-column justify-content-center py-2" onContextMenu={handleOnContextMenu}>
+      <div className='col-lg-6 col-md-8 col-sm-10 mx-auto mt-5'>
+        <h1 className="col fw-bold text-center mb-2 text-primary">
           NEXTODON
         </h1>
         {showingComponent}
         {
           showingComponent === undefined
           ?
-          <div className='row gap-2 p-1 m-auto justify-content-center'>
+          <div className='row gap-2 pt-5 px-1 m-auto justify-content-center'>
             <button 
               id="signin"
               className='col-auto btn btn-secondary'

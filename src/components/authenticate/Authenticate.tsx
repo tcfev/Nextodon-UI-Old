@@ -165,7 +165,7 @@ export default function SignIn (props: SignInProps) {
                         className="p-2"
                         name="password" 
                         type="password" 
-                        placeholder="Your password (optional)"
+                        placeholder="Your password"
                         onInput={
                             (event: any) => {
                                 setPassword(event.target.value);

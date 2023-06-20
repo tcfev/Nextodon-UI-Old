@@ -136,11 +136,11 @@ export function generateRandomWordsInElement (wordBox: any, words: string[]) {
             const randomColor = Color.getRandom('22');
             wordNumber.style.backgroundColor = randomColor;
             wordNumber.style.borderRight = '1px solid ' + randomColor.substring(0, randomColor.length - 2) + 'FF';
-            wordNumber.className = 'col-2 px-0 rounded-start text-center py-3 fs-6';
+            wordNumber.className = 'col-2 px-0 rounded-start text-center py-2 fs-6 d-flex flex-column justify-content-center';
             
             const wordEelement: HTMLElement = create('span');
             wordEelement.textContent = word;
-            wordEelement.className = 'col px-0 py-2 d-flex flex-column justify-content-center';
+            wordEelement.className = 'col px-0 py-1 d-flex flex-column justify-content-center';
             
             wordFrame.appendChild(wordNumber);
             wordFrame.appendChild(wordEelement);

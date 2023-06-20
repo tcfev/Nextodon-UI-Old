@@ -77,8 +77,8 @@ export default function VerifyContent (props: VerifyContentProperties) {
                                                         }
                                                     }}
                                                 >
-                                                    <span className="col-2 px-0 rounded-start text-center py-3 fs-6">{i+j+1}</span>
-                                                    <span className="col px-0 py-2 d-flex flex-column justify-content-center">{w}</span>
+                                                    <span className="col-2 px-0 rounded-start text-center py-2 fs-6 d-flex flex-column justify-content-center">{i+j+1}</span>
+                                                    <span className="col px-0 py-1 d-flex flex-column justify-content-center">{w}</span>
                                                 </div>
                                             )
                                         })
@@ -90,10 +90,10 @@ export default function VerifyContent (props: VerifyContentProperties) {
                         })
                     }
                 </div>
-                <p className="row pt-5 pb-0 px-3">
+                <p className="row pt-3 px-3">
                     Choose them in specific order.
                 </p>
-                <div className="row pt-0 px-0 gap-1 mb-5">
+                <div className="row pt-0 px-0 gap-1 mb-1">
                     {
                         props.randomWords.map((word: string, i: number) => {
                             if (i % 4 === 0) {
@@ -117,7 +117,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
                                                         }}
                                                         content={'PHRASE_'.concat(w)}
                                                     >
-                                                        <span className="col-2 px-0 rounded-start text-center py-3 fs-6">?</span>
+                                                        <span className="col-2 px-0 rounded-start text-center py-2 fs-6 d-flex flex-column justify-content-center">?</span>
                                                         <span className="col px-0 py-2  d-flex flex-column justify-content-center">{w}</span>
                                                     </div>
                                                 )
