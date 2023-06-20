@@ -17,7 +17,7 @@ export default function ChoosePassphrase (props: ChoosePassphraseProperties) {
             <div className="card-body">
                 <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
                 <div className="row">
-                    <form className="col">
+                    <form className="col" autoComplete="off">
                         <input 
                             className="p-2 col-12 mb-3"
                             type="password" 

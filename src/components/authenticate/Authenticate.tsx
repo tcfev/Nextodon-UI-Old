@@ -103,6 +103,7 @@ export default function SignIn (props: SignInProps) {
                     id="signin-form"
                     className="row gap-2 p-0 m-0"
                     onSubmit={getDigitalIdentity}
+                    autoComplete="off"
                 >
                     <div className="col position-relative p-0 m-0">
                         <span className="glassy-left"></span>

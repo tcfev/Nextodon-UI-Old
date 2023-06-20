@@ -24,7 +24,7 @@ export default function ConfirmPassphrase (props: ConfirmPassphraseProperties) {
         <>
             <div className="card-body">
                 <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
-                <form>
+                <form autoComplete="off">
                     <input 
                         type="password" 
                         className="p-2 col-12 mb-3"

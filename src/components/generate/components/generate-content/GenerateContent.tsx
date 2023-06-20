@@ -103,7 +103,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
                     </button>
                 </div>
                 <div className="row p-2 mt-4">
-                    <form method="post" onSubmit={handleFormSubmit} id="written-form">
+                    <form method="post" onSubmit={handleFormSubmit} id="written-form" autoComplete="off">
                         <div className="form-check">
                             <input 
                                 className="form-check-input" 
