@@ -224,6 +224,10 @@ div.loading-spinner {
       border: 5px dashed rgb(212, 255, 0) !important;
     }
   }
+
+  span.fs-6 {
+    background-color: #222;
+  }  
 }
 
 @media (prefers-color-scheme: light) {
@@ -286,4 +290,8 @@ div.loading-spinner {
   input.error  {
     background-color: rgba(234, 234, 234, 0.213);
   }
+
+  span.fs-6 {
+    background-color: #d2d2d285;
+  }  
 }

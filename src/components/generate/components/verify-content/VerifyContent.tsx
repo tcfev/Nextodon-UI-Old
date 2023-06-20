@@ -77,7 +77,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
                                                         }
                                                     }}
                                                 >
-                                                    <span className="col-2 px-0 bg-light rounded-start text-center py-3 fs-6">{i+j+1}</span>
+                                                    <span className="col-2 px-0 rounded-start text-center py-3 fs-6">{i+j+1}</span>
                                                     <span className="col px-0 py-2 d-flex flex-column justify-content-center">{w}</span>
                                                 </div>
                                             )
@@ -117,7 +117,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
                                                         }}
                                                         content={'PHRASE_'.concat(w)}
                                                     >
-                                                        <span className="col-2 px-0 bg-light rounded-start text-center py-3 fs-6">?</span>
+                                                        <span className="col-2 px-0 rounded-start text-center py-3 fs-6">?</span>
                                                         <span className="col px-0 py-2  d-flex flex-column justify-content-center">{w}</span>
                                                     </div>
                                                 )
