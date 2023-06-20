@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import Header from "../header/Header";
 
 type ChoosePassphraseProperties = {
     navState: number,
@@ -16,22 +15,7 @@ export default function ChoosePassphrase (props: ChoosePassphraseProperties) {
     return (
         <>
             <div className="card-body">
-                <div className="row">
-                    {
-                        props.icon
-                        ?
-                        <figure className="signup-head-icon-frame">
-                        </figure>
-                        :
-                        ''
-                    }
-                    <h3 className="mb-5 fw-bold">
-                        {props.title}
-                    </h3>
-                    <p>
-                    {props.subtitle}
-                    </p>
-                </div>
+                <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
                 <div className="row">
                     <form className="col">
                         <input 

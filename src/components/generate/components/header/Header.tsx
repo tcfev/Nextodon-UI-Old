@@ -1,3 +1,5 @@
+import { GiPartyPopper } from "react-icons/gi";
+
 type HeaderProperties = {
     icon: boolean
     title: string,
@@ -11,12 +13,12 @@ export default function Header (props: HeaderProperties) {
                     props.icon
                     ?
                     <figure className="signup-head-icon-frame">
-                        <img className="signup-head-icon-frame-image" src={require('./../../../../assets/media/firework.png')} alt="ForDem"></img>
+                        <GiPartyPopper className="me-2 text-info" size={50}></GiPartyPopper>
                     </figure>
                     :
                     ''
                 }
-                <h2 className="mb-5">
+                <h2 className="mb-5 fw-bold">
                     {props.title}
                 </h2>
             </div>

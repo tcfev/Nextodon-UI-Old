@@ -3,7 +3,7 @@ import { useAppSelector } from "../../../../store/hooks";
 import { selectPhrase } from "../../../../store/features/phrase/phraseSlice";
 import { get, getEmptyArray, logger, login } from "../../../../helpers/functions";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
-import ConfirmPassphrase from "../confirm-passphrase/ConfirmPassphrase";
+import Header from "../header/Header";
 
 type VerifyContentProperties = {
     navState: number,
@@ -51,22 +51,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
     return (
         <>
             <div className="card-body">
-                <div className="row">
-                    {
-                        props.icon
-                        ?
-                        <figure className="signup-head-icon-frame">
-                        </figure>
-                        :
-                        ''
-                    }
-                    <h3 className="mb-5 fw-bold">
-                        {props.title}
-                    </h3>
-                    <p className="pt-0 p-b3 px-3">
-                    {props.subtitle}
-                    </p>
-                </div>
+                <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
                 <div className="row pt-0 px-0 gap-1">
                     {
                         emptyPhrase.map((word: string, i: number) => {

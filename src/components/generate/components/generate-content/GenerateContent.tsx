@@ -3,7 +3,6 @@ import {
     logger, 
     get,
     generateRandomWordsInElement,
-    getRandomWords,
 } from "../../../../helpers/functions";
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { selectPhrase, setPhrase } from "../../../../store/features/phrase/phraseSlice";
@@ -12,6 +11,7 @@ import PopUp from "../../../popup/PopUp";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 import { BiRefresh } from "react-icons/bi";
 import { ethers } from "ethers";
+import Header from "../header/Header";
 
 type GenerateContentProperties = {
     navState: number,
@@ -89,22 +89,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
                     ? <Loading after={1} phraseCallback={() => {generatePhrase(props.passphrase);}}></Loading>
                     : ''
                 }
-                <div className="row">
-                    {
-                        props.icon
-                        ?
-                        <figure className="signup-head-icon-frame">
-                        </figure>
-                        :
-                        ''
-                    }
-                    <h3 className="mb-5 fw-bold">
-                        {props.title}
-                    </h3>
-                    <p>
-                    {props.subtitle}
-                    </p>
-                </div>
+                <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
                 <div className="row d-flex gap-1 mb-2 py-2 px-0" id="phrase-generation"></div>
                 <div className="row p-0">
                     <button 

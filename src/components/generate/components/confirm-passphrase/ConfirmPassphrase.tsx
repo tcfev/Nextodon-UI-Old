@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
+import Header from "../header/Header";
 
 type ConfirmPassphraseProperties = {
     navState: number,
@@ -22,22 +23,7 @@ export default function ConfirmPassphrase (props: ConfirmPassphraseProperties) {
     return (
         <>
             <div className="card-body">
-                <div className="row">
-                    {
-                        props.icon
-                        ?
-                        <figure className="signup-head-icon-frame">
-                        </figure>
-                        :
-                        ''
-                    }
-                    <h3 className="mb-5 fw-bold">
-                        {props.title}
-                    </h3>
-                    <p>
-                    {props.subtitle}
-                    </p>
-                </div>
+                <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
                 <form>
                     <input 
                         type="password" 

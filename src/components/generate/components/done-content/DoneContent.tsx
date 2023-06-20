@@ -1,5 +1,5 @@
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
-import { GiPartyPopper } from "react-icons/gi";
+import Header from "../header/Header";
 
 type DoneContentProperties = {
     navState: number,
@@ -13,21 +13,7 @@ export default function DoneContent (props: DoneContentProperties) {
     return (
         <>
             <div className="card-body">
-                <div className="row gap-2">
-                    <h3 className="col mb-5 fw-bold">
-                        {
-                            props.icon
-                            ?
-                                <GiPartyPopper className="me-2 text-info" size={50}></GiPartyPopper>
-                            :
-                            ''
-                        }
-                        {props.title}
-                    </h3>
-                    <p>
-                    {props.subtitle}
-                    </p>
-                </div>
+                <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
             </div>
             <div className="card-footer">
                 <div className="row gap-2 p-2">
