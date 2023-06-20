@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { get, isValidValue, logger, replaceErrorWithOk } from "../../helpers/functions";
-import { WORDS } from "./words";
+import { get, getWords, isValidValue, logger, login, replaceErrorWithOk } from "../../helpers/functions";
 import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
 
 type SignInProps = {
@@ -24,7 +23,7 @@ export default function SignIn (props: SignInProps) {
         setSearchVal(value);
         setSuggestionList([]);
         if (value.length > 0)
-            setSuggestionList(WORDS.filter(w => w.startsWith(value.toLowerCase())));
+            setSuggestionList(getWords().filter(w => w.startsWith(value.toLowerCase())));
     }
 
     /**
@@ -46,13 +45,10 @@ export default function SignIn (props: SignInProps) {
         logger('Authentication Started');
 
         /**
-         * Fetch endpoint
          * Check authentication
-         * 
-         * 
-         * 
-         * 
          */
+        const value = await login(mnemonicPhrase, password);
+        logger(value);
     }
 
 
@@ -63,6 +59,7 @@ export default function SignIn (props: SignInProps) {
      */
     const getDigitalIdentity = (event: any) => {
         event.preventDefault();
+        console.log("aa")
 
         if (isValidValue(event.target.elements.phrase, event.target.elements.phrase.value)) {
             replaceErrorWithOk (event.target.elements.phrase);
@@ -71,8 +68,12 @@ export default function SignIn (props: SignInProps) {
             replaceErrorWithOk (event.target.elements.password);
         }
 
-        if (event.target.elements.phrase.value.length > 0 && 
-            event.target.elements.password.value.length > 0) {
+        if (event.target.elements.phrase.value.length > 0 || 
+            (
+                event.target.elements.phrase.value.length > 0 && 
+                event.target.elements.password.value.length > 0
+            )
+        ) {
 
             /**
              * call authenticate now
@@ -99,6 +100,7 @@ export default function SignIn (props: SignInProps) {
                 </p>
                 <form 
                     method="post" 
+                    id="signin-form"
                     className="row gap-2 p-0 m-0"
                     onSubmit={getDigitalIdentity}
                 >
@@ -161,7 +163,7 @@ export default function SignIn (props: SignInProps) {
                     <input 
                         className="p-2"
                         name="password" 
-                        type="text" 
+                        type="password" 
                         placeholder="Your password (optional)"
                         onInput={
                             (event: any) => {
@@ -183,15 +185,19 @@ export default function SignIn (props: SignInProps) {
                         type="reset" 
                         className="col btn btn-secondary p-0"
                         onClick={() => props.goBack()}
-                        // disabled={!isMnemonicComplete(phrase)}
                     ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button>
                     <button 
                         type="submit" 
                         className="col btn btn-primary"
-                        // disabled={!isMnemonicComplete(phrase)}
+                        form="signin-form"
+                        disabled={!isMnemonicComplete(phrase)}
                     >Sign in</button>
                 </div>
             </div>
         </div>
     );
 }
+
+/**
+boss drama south mouse sure fluid churn normal reveal police join ribbon
+ */

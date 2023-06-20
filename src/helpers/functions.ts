@@ -175,17 +175,31 @@ export function getNumericOrderedWords(words: string[]) {
     return orderedWords;
 }
 
-//------------------- from old login -------------------------
 
-export function hexToBytes(hexValue: string): number[] {
-    let bytes = [];
-    for (let c = 0; c < hexValue.length; c += 2) {
-        bytes.push(parseInt(hexValue.substring(c, 2), 16));
+export function getRandomWords () : any[] {
+    const allWords = getWords();
+    const newArray: any[] = [];
+    let securityCounter = 0;
+    while (newArray.length < 12) {
+        const item: any = allWords[Math.floor(Math.random() * allWords.length)];
+        if (newArray.findIndex((el) => el === item) === -1)
+            newArray.push(item)
+
+        if (securityCounter++ > 500)
+        break;
     }
+    return newArray;
+}
+
+//------------------- from old login -------------------------
+function hexToBytes(hex: string): number[] {
+    let bytes = [];
+    for (let c = 0; c < hex.length; c += 2)
+        bytes.push(parseInt(hex.substr(c, 2), 16));
     return bytes;
 }
 
-export function postData(url: string, data: any): Promise<Response> {
+function postData(url: string, data: any): Promise<Response> {
     const response = fetch(url, {
         method: "POST",
         headers: {
@@ -196,8 +210,15 @@ export function postData(url: string, data: any): Promise<Response> {
     return response;
 }
 
-export async function login(mnemonic: string): Promise<string | null> {
-    const mnemonicObject = ethers.Mnemonic.fromPhrase(mnemonic);
+export function getWords(): string[] {
+    const en = ethers.wordlists['en'] as ethers.WordlistOwl;
+    return en._decodeWords();
+}
+
+export async function login(mnemonic: string, passPhrase: string): Promise<string | null> {
+    logger('Login: ', mnemonic.trim(), passPhrase);
+
+    const mnemonicObject = ethers.Mnemonic.fromPhrase(mnemonic.trim(), passPhrase);
     const node = ethers.HDNodeWallet.fromMnemonic(mnemonicObject);
     const wallet = node.derivePath("m/44'/60'/0'/0/0");
     const digest = ethers.sha256(wallet.publicKey);
@@ -223,9 +244,16 @@ export async function login(mnemonic: string): Promise<string | null> {
         signature: signature64,
         publicKey: publicKey64,
     });
-    console.log(signature64,publicKey64)
+    logger('Login: ', {
+        signature: signature64,
+        publicKey: publicKey64,
+    })
     const result = await response.json();
 
     return result.value;
+}
+
+export function generateMnemonic(this: any): string[] {
+    return ethers.Mnemonic.fromEntropy(ethers.randomBytes(16), this).phrase.split(' ');
 }
 //--------------------------------------------------

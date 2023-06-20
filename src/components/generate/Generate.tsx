@@ -3,7 +3,6 @@ import {
     randomize,
 } from "../../helpers/functions";
 import { useEffect, useState } from "react";
-import Header from "./components/header/Header";
 import GenerateContent from "./components/generate-content/GenerateContent";
 import VerifyContent from "./components/verify-content/VerifyContent";
 import DoneContent from "./components/done-content/DoneContent";
@@ -66,6 +65,7 @@ export default function SignUp (props:SignUpProps) {
                         navState={navigationState}
                         setNavState={setNavigationState}
                         randomWords={randomize(generatedPhrase.phrase.value)}
+                        passphrase={confirmPassphrase}
                         icon={false} 
                         title="Verify Your Mnemonic" 
                         subtitle="Arrange your mnemonic in the correct order."

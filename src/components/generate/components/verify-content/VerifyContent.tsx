@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectPhrase } from "../../../../store/features/phrase/phraseSlice";
-import { get, getEmptyArray, logger } from "../../../../helpers/functions";
+import { get, getEmptyArray, logger, login } from "../../../../helpers/functions";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
+import ConfirmPassphrase from "../confirm-passphrase/ConfirmPassphrase";
 
 type VerifyContentProperties = {
     navState: number,
@@ -10,7 +11,8 @@ type VerifyContentProperties = {
     randomWords: string[],
     icon: boolean
     title: string,
-    subtitle: string
+    subtitle: string,
+    passphrase: string
 }
 
 export default function VerifyContent (props: VerifyContentProperties) {
@@ -31,7 +33,6 @@ export default function VerifyContent (props: VerifyContentProperties) {
      * @returns boolean
      */
     const checkVerification = () : boolean => {
-        logger("Checking Verification", generatedPhrase.phrase.value, emptyPhrase);
         let validated = true;
         const oldPhrase:string[] = generatedPhrase.phrase.value;
         
@@ -42,10 +43,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
                 }
             }
         if (validated) {
-           /**
-            * Go To Application now
-            * after check validation
-            */
+            logger("Checking Verification", login(emptyPhrase.join(' '), props.passphrase));
         }
         return validated;
     } 
