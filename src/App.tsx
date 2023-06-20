@@ -6,14 +6,11 @@ type Route = 'SIGNIN' | 'SIGNUP';
 
 function App() {
   const [showingComponent, setShowingComponent] = useState<any>();
-  const [currentRoute, setCurrentRoute] = useState<Route>();
 
   const goBack = () => {
     setShowingComponent(undefined);
   }
   const goTo = (route:Route) => {
-    setCurrentRoute(route);
-
     switch(route) {
       case 'SIGNIN': setShowingComponent(<Authenticate goBack={goBack}></Authenticate>);
         break;
@@ -30,9 +27,7 @@ function App() {
     event.preventDefault();
   };
 
-  useEffect(() => {
-    console.log(showingComponent)
-  },[])
+  useEffect(() => {},[])
 
   return (
     <div className="App container flex-column justify-content-center py-5" onContextMenu={handleOnContextMenu}>

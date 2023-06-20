@@ -142,22 +142,17 @@ export function generateRandomWordsInElement (wordBox: any, words: string[]) {
             
             wordFrame.appendChild(wordNumber);
             wordFrame.appendChild(wordEelement);
-        
 
             if (index % 4 !== 0) {
-                console.log(index);
                 column.appendChild(wordFrame);
-
             } else if (index % 4 === 0) {
-                console.log(index);
                 column = create("div");
                 column.className = 'col';
                 column.appendChild(wordFrame);
-
                 wordBox.appendChild(column);
             }
         });
-        logger('PhraseBox regenerated');
+        logger('PhraseBox regenerated', words);
     }
 }
 
