@@ -173,21 +173,6 @@ export function getNumericOrderedWords(words: string[]) {
 }
 
 
-export function getRandomWords () : any[] {
-    const allWords = getWords();
-    const newArray: any[] = [];
-    let securityCounter = 0;
-    while (newArray.length < 12) {
-        const item: any = allWords[Math.floor(Math.random() * allWords.length)];
-        if (newArray.findIndex((el) => el === item) === -1)
-            newArray.push(item)
-
-        if (securityCounter++ > 500)
-        break;
-    }
-    return newArray;
-}
-
 //------------------- from old login -------------------------
 function hexToBytes(hex: string): number[] {
     let bytes = [];
