@@ -172,8 +172,6 @@ export function getNumericOrderedWords(words: string[]) {
     return orderedWords;
 }
 
-
-//------------------- from old login -------------------------
 function hexToBytes(hex: string): number[] {
     let bytes = [];
     for (let c = 0; c < hex.length; c += 2)
@@ -238,4 +236,3 @@ export async function login(mnemonic: string, passPhrase: string): Promise<strin
 export function generateMnemonic(this: any): string[] {
     return ethers.Mnemonic.fromEntropy(ethers.randomBytes(16), this).phrase.split(' ');
 }
-//--------------------------------------------------
