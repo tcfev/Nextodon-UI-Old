@@ -5,7 +5,7 @@ type ChoosePassphraseProperties = {
     navState: number,
     setNavState: (value:number) => void,
     setPassphrase: (value:string) => void,
-    goBack: () => void,
+    goTo: (route:any) => void,
     icon: boolean
     title: string,
     subtitle: string
@@ -33,11 +33,11 @@ export default function ChoosePassphrase (props: ChoosePassphraseProperties) {
             </div>
             <div className="card-footer">
                 <div className="row gap-2 p-2">
-                    <button 
+                    {/* <button 
                         className="col btn btn-secondary p-0" 
                         title="Go Main Page" 
                         onClick={() => props.goBack()}
-                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button>
+                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button> */}
                     <button 
                         className="col btn btn-primary" 
                         type="submit" 
@@ -46,6 +46,15 @@ export default function ChoosePassphrase (props: ChoosePassphraseProperties) {
                         onClick={() => props.setNavState(props.navState + 1)}
                     >Continue</button>
                 </div>
+                <p className="mt-3">
+                    Already have an account? 
+                    <span
+                        className="p-2 text-decoration-underline text-primary"
+                        onClick={() => props.goTo('SIGNIN')}
+                    >
+                        Sign in
+                    </span >
+                </p>
             </div>
         </>
     );

@@ -12,7 +12,7 @@ import ChoosePassphrase from "./components/choose-passphrase/ChoosePassphrase";
 import ConfirmPassphrase from "./components/confirm-passphrase/ConfirmPassphrase";
 
 type SignUpProps = {
-    goBack: () => void
+    goTo: (route:any) => void
 }
 
 export default function SignUp (props:SignUpProps) {
@@ -30,7 +30,7 @@ export default function SignUp (props:SignUpProps) {
                         navState={navigationState}
                         setNavState={setNavigationState}
                         setPassphrase={setPassphrase}
-                        goBack={props.goBack}
+                        goTo={props.goTo}
                         icon={false} 
                         title="Choose Passphrase" 
                         subtitle="Please choose a strong passphrase for your account."
@@ -43,6 +43,7 @@ export default function SignUp (props:SignUpProps) {
                         setNavState={setNavigationState}
                         passPhrase={passPhrase}
                         setConfirmPassphrase={setConfirmPassphrase}
+                        goTo={props.goTo}
                         icon={false} 
                         title="Confirm Passphrase" 
                         subtitle="Confirm your passphrase, if you choosed one."
@@ -54,6 +55,7 @@ export default function SignUp (props:SignUpProps) {
                         navState={navigationState}
                         setNavState={setNavigationState}
                         passphrase={confirmPassphrase}
+                        goTo={props.goTo}
                         icon={false} 
                         title="Generate Token" 
                         subtitle="Your mnemonic is your digital identity. It is important to keep it secure. Write it down on paper and store it in a safe location to prevent loss."
@@ -66,6 +68,7 @@ export default function SignUp (props:SignUpProps) {
                         setNavState={setNavigationState}
                         randomWords={randomize(generatedPhrase.phrase.value)}
                         passphrase={confirmPassphrase}
+                        goTo={props.goTo}
                         icon={false} 
                         title="Verify Your Mnemonic" 
                         subtitle="Arrange your mnemonic in the correct order."

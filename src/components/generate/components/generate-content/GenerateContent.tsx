@@ -16,6 +16,7 @@ import Header from "../header/Header";
 type GenerateContentProperties = {
     navState: number,
     setNavState: (value:number) => void,
+    goTo: (route:any) => void,
     passphrase: string,
     icon: boolean
     title: string,
@@ -93,7 +94,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
                 <div className="row d-flex gap-1 mb-2 py-2 px-0" id="phrase-generation"></div>
                 <div className="row p-0">
                     <button 
-                        className="btn btn-info text-light col-6 mx-auto" 
+                        className="btn btn-primary text-light col-6 mx-auto" 
                         title="Regenarates the words"
                         onClick={() => {
                             setPopupIsHide(false);
@@ -134,6 +135,15 @@ export default function GenerateContent (props: GenerateContentProperties) {
                         )}
                     >Continue</button>
                 </div>
+                <p className="mt-3">
+                    Already have an account? 
+                    <span
+                        className="p-2 text-decoration-underline text-primary"
+                        onClick={() => props.goTo('SIGNIN')}
+                    >
+                        Sign in
+                    </span >
+                </p>
             </div>
         </>
     );

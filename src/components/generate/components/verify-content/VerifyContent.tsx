@@ -8,6 +8,7 @@ import Header from "../header/Header";
 type VerifyContentProperties = {
     navState: number,
     setNavState: (value:number) => void,
+    goTo: (route:any) => void,
     randomWords: string[],
     icon: boolean
     title: string,
@@ -152,6 +153,15 @@ export default function VerifyContent (props: VerifyContentProperties) {
                         }})}
                     >Continue</button>
                 </div>
+                <p className="mt-3">
+                    Already have an account? 
+                    <span
+                        className="p-2 text-decoration-underline text-primary"
+                        onClick={() => props.goTo('SIGNIN')}
+                    >
+                        Sign in
+                    </span >
+                </p>
             </div>
         </>
     );

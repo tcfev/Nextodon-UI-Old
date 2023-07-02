@@ -5,20 +5,8 @@ import Generate from './components/generate/Generate';
 type Route = 'SIGNIN' | 'SIGNUP';
 
 function App() {
-  const [showingComponent, setShowingComponent] = useState<any>();
+  const [showingComponent, setShowingComponent] = useState<Route>('SIGNIN');
 
-  const goBack = () => {
-    setShowingComponent(undefined);
-  }
-  const goTo = (route:Route) => {
-    switch(route) {
-      case 'SIGNIN': setShowingComponent(<Authenticate goBack={goBack}></Authenticate>);
-        break;
-      case 'SIGNUP': setShowingComponent(<Generate goBack={goBack}></Generate>);
-        break;
-      default: break;
-    }
-  }
   /**
    * Prevents right click
    * @param event 
@@ -32,28 +20,18 @@ function App() {
   return (
     <div className="App container flex-column justify-content-center py-2" onContextMenu={handleOnContextMenu}>
       <div className='col-lg-6 col-md-8 col-sm-10 mx-auto mt-5'>
-        <h1 className="col fw-bold text-center mb-2 text-primary">
-          NEXTODON
-        </h1>
-        {showingComponent}
+        <div className='d-flex justify-content-center'>
+          <img className="p-1 align-self-center mb-2" alt="logo" width="40" height="40" src={require('./assets/media/logo-48.png')}/> 
+          <h1 className="p-2 align-self-center fw-bold text-center mb-2" style={{color:'#5b46db'}}>
+            Nextodon
+          </h1>
+        </div>
         {
-          showingComponent === undefined
-          ?
-          <div className='row gap-2 pt-5 px-1 m-auto justify-content-center'>
-            <button 
-              id="signin"
-              className='col-auto btn btn-secondary'
-              onClick={()=> goTo('SIGNIN')}
-            >Already a member?</button>
-            <button 
-              id="signup"
-              className='col-auto btn btn-secondary'
-              onClick={()=> goTo('SIGNUP')}
-            >Become a member</button>
-          </div>
-          :
-          ''
+          showingComponent === 'SIGNIN' ?  <Authenticate goTo={setShowingComponent} ></Authenticate> : ''
         }
+        {
+          showingComponent === 'SIGNUP' ?  <Generate goTo={setShowingComponent}></Generate> : ''
+        }        
       </div>
     </div>
   );

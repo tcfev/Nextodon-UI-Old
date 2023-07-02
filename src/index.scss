@@ -136,7 +136,7 @@ div.loading-spinner {
 
       &.active {
           width: 15%;
-          background-color: #2792db;
+          background-color: #5b46db;
       }
   }
 }
@@ -282,4 +282,23 @@ div.loading-spinner {
   span.fs-6 {
     background-color: #d2d2d285;
   }  
+}
+
+.btn-primary {
+  background-color: #5a46dbad !important;
+  border:none !important;
+
+  &:hover, &:focus {
+    background-color: #5a46db !important;
+  }
+}
+
+.btn-secondary {
+  background-color: transparent !important;
+  color: #5a46dbad !important;
+  border-color: #5a46dbad !important;
+
+  &:hover, &:focus {
+    color: #5a46db !important;
+  }
 }

@@ -3,7 +3,7 @@ import { get, getWords, isValidValue, logger, login, replaceErrorWithOk } from "
 import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
 
 type SignInProps = {
-    goBack: () => void
+    goTo: (route:any) => void
 }
 
 export default function SignIn (props: SignInProps) {
@@ -178,11 +178,11 @@ export default function SignIn (props: SignInProps) {
 
             <div className="card-footer">
                 <div className="row gap-2 p-2">
-                    <button 
+                    {/* <button 
                         type="reset" 
                         className="col btn btn-secondary p-0"
                         onClick={() => props.goBack()}
-                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button>
+                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button> */}
                     <button 
                         type="submit" 
                         className="col btn btn-primary"
@@ -190,6 +190,15 @@ export default function SignIn (props: SignInProps) {
                         disabled={!isMnemonicComplete(phrase)}
                     >Sign in</button>
                 </div>
+                <p className="mt-3">
+                    Don't have an account yet? 
+                    <span
+                        className="p-2 text-decoration-underline text-primary"
+                        onClick={() => props.goTo('SIGNUP')}
+                    >
+                        Sign up
+                    </span >
+                </p>
             </div>
         </div>
     );

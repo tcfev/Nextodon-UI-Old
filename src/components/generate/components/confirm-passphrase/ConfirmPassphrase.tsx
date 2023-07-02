@@ -7,6 +7,7 @@ type ConfirmPassphraseProperties = {
     setNavState: (value:number) => void,
     passPhrase: string,
     setConfirmPassphrase: (value:string) => void,
+    goTo: (route:any) => void,
     icon: boolean
     title: string,
     subtitle: string
@@ -55,6 +56,15 @@ export default function ConfirmPassphrase (props: ConfirmPassphraseProperties) {
                         })}
                     >Continue</button>
                 </div>
+                <p className="mt-3">
+                    Already have an account? 
+                    <span
+                        className="p-2 text-decoration-underline text-primary"
+                        onClick={() =>  props.goTo('SIGNIN')}
+                    >
+                        Sign in
+                    </span >
+                </p>
             </div>
         </>
     );
