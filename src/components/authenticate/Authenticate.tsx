@@ -47,8 +47,17 @@ export default function SignIn (props: SignInProps) {
         /**
          * Check authentication
          */
-        const value = await login(mnemonicPhrase, password);
-        logger(value);
+        const token = await login(mnemonicPhrase, password);
+        const query = new URLSearchParams(window.location.search);
+        const redirectUri = query.get("redirect_uri");
+
+        if (token) {
+            if (redirectUri) {
+                window.location.href = redirectUri + "?code=" + token;
+            } else {
+                window.location.href = "/";
+            }
+        }
     }
 
 
