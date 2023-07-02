@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectPhrase } from "../../../../store/features/phrase/phraseSlice";
-import { get, getEmptyArray, logger } from "../../../../helpers/functions";
+import { get, getEmptyArray, logger, login } from "../../../../helpers/functions";
+import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
+import Header from "../header/Header";
 
 type VerifyContentProperties = {
     navState: number,
     setNavState: (value:number) => void,
-    randomWords: string[]
+    goTo: (route:any) => void,
+    randomWords: string[],
+    icon: boolean
+    title: string,
+    subtitle: string,
+    passphrase: string
 }
 
 export default function VerifyContent (props: VerifyContentProperties) {
@@ -27,7 +34,6 @@ export default function VerifyContent (props: VerifyContentProperties) {
      * @returns boolean
      */
     const checkVerification = () : boolean => {
-        logger("Checking Verification", generatedPhrase.phrase.value, emptyPhrase);
         let validated = true;
         const oldPhrase:string[] = generatedPhrase.phrase.value;
         
@@ -38,75 +44,105 @@ export default function VerifyContent (props: VerifyContentProperties) {
                 }
             }
         if (validated) {
-           /**
-            * Go To Application now
-            * after check validation
-            */
+            logger("Checking Verification", login(emptyPhrase.join(' '), props.passphrase));
         }
         return validated;
     } 
 
     return (
-       <div className="verify-content">
-            <div className="verify-content-phrase-ordered-places">
-                {
-                    emptyPhrase.map((word: string, i: number) => {
-                        return <div
-                            key={i * 5}
-                            onClick={(event: any) => {
-                                if (emptyPhrase.findIndex(el => el === word) !== -1) {
-                                    emptyPhrase[i] = null;
-                                    const modifiedEmptyPhrase = [...emptyPhrase];
-                                    setEmptyPhrase(modifiedEmptyPhrase);
-                                    const checkWordElement =  get('div[content="PHRASE_'.concat(word, '"]'));
-                                    if (checkWordElement !== null) {
-                                        checkWordElement.classList.remove('selected');
+        <>
+            <div className="card-body">
+                <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
+                <div className="row pt-0 px-0 gap-1">
+                    {
+                        emptyPhrase.map((word: string, i: number) => {
+                            if (i % 4 === 0) {
+                                return (
+                                    <div className="col" key={i}>{
+                                        emptyPhrase
+                                        .filter((w: string, j: number) => j >= i && j < i + 4)
+                                        .map((w: string, j: number) => {
+                                            return (
+                                                <div 
+                                                    className="row gap-1 border rounded mb-2" 
+                                                    key={i+j}
+                                                    onClick={(event: any) => {
+                                                        if (emptyPhrase.findIndex(el => el === w) !== -1) {
+                                                            emptyPhrase[i+j] = null;
+                                                            const modifiedEmptyPhrase = [...emptyPhrase];
+                                                            setEmptyPhrase(modifiedEmptyPhrase);
+                                                            const checkWordElement =  get('div[content="PHRASE_'.concat(w, '"]'));
+                                                            if (checkWordElement !== null) {
+                                                                checkWordElement.classList.remove('text-decoration-line-through', 'disabled');
+                                                            }
+                                                        }
+                                                    }}
+                                                >
+                                                    <span className="col-2 px-0 rounded-start text-center py-2 fs-6 d-flex flex-column justify-content-center">{i+j+1}</span>
+                                                    <span className="col px-0 py-1 d-flex flex-column justify-content-center">{w}</span>
+                                                </div>
+                                            )
+                                        })
                                     }
-                                }
-                            }}
-                            className={word !== null ? 'notEmpty' : ''}
-                        >
-                            <span>{i + 1}</span>
-                            <span>{word}</span>
-                        </div>;
-                    })
-                }
+                                    </div>
+                                );
+                            }
+                            return '';
+                        })
+                    }
+                </div>
+                <p className="row pt-3 px-3">
+                    Choose them in specific order.
+                </p>
+                <div className="row pt-0 px-0 gap-1 mb-1">
+                    {
+                        props.randomWords.map((word: string, i: number) => {
+                            if (i % 4 === 0) {
+                                return (
+                                    <div className="col" key={i}>
+                                        {
+                                            props.randomWords
+                                            .filter((w: string, j: number) => j >= i && j < i + 4)
+                                            .map((w: string, j: number) => {
+                                                return (
+                                                    <div 
+                                                        className="row gap-1 border rounded mb-2" 
+                                                        key={i+j}
+                                                        onClick={(event: any) => {
+                                                            if (emptyPhrase.findIndex(el => el === w) === -1) {
+                                                                emptyPhrase[emptyPhrase.indexOf(null)] = w;
+                                                                const modifiedEmptyPhrase = [...emptyPhrase];
+                                                                setEmptyPhrase(modifiedEmptyPhrase);
+                                                                event.currentTarget.classList.add('text-decoration-line-through', 'disabled');
+                                                            }
+                                                        }}
+                                                        content={'PHRASE_'.concat(w)}
+                                                    >
+                                                        <span className="col-2 px-0 rounded-start text-center py-2 fs-6 d-flex flex-column justify-content-center">?</span>
+                                                        <span className="col px-0 py-2  d-flex flex-column justify-content-center">{w}</span>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                );
+                            }
+                            return '';
+                        })
+                    }
+                </div>
             </div>
-            <p>
-                Choose them in specific order.
-            </p>
-            <div className="verify-content-phrase-unordered-places">
-                {
-                    props.randomWords.map((word: string, i: number) => {
-                        return <div 
-                            key={i * 5}
-                            onClick={(event: any) => {
-                                if (emptyPhrase.findIndex(el => el === word) === -1) {
-                                    emptyPhrase[emptyPhrase.indexOf(null)] = word;
-                                    const modifiedEmptyPhrase = [...emptyPhrase];
-                                    setEmptyPhrase(modifiedEmptyPhrase);
-                                    event.currentTarget.classList.add('selected');
-                                }
-                            }}
-                            content={'PHRASE_'.concat(word)}
-                        >
-                            <span>?</span>
-                            <span>{word}</span>
-                        </div>;
-                    })
-                }
-            </div>
-            <div className="verify-content-control">
+            <div className="card-footer">
                 {/* <p>Choose a strong password for your account (optional)</p>
                 <input type="text" placeholder="password" onInput={(e: any) => setPassPhrase(e.target.value)}/> */}
-                <div className="verify-content-control-btns">
+                <div className="row gap-2 p-2">
                     <button 
-                        className="verify-content-control-btns-back" 
+                        className="col btn btn-secondary p-0" 
                         title="Go Main Page" 
                         onClick={() => props.setNavState(props.navState - 1 === 0 ? 0 : props.navState - 1)}
-                    ></button>
+                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button>
                     <button 
-                        className="verify-content-control-btns-continue" 
+                        className="col btn btn-primary" 
                         type="submit" 
                         title="Continue"
                         disabled={!isSetEmptyPhrase()}
@@ -117,7 +153,16 @@ export default function VerifyContent (props: VerifyContentProperties) {
                         }})}
                     >Continue</button>
                 </div>
+                <p className="mt-3">
+                    Already have an account? 
+                    <span
+                        className="p-2 text-decoration-underline text-primary"
+                        onClick={() => props.goTo('SIGNIN')}
+                    >
+                        Sign in
+                    </span >
+                </p>
             </div>
-        </div>
+        </>
     );
 }

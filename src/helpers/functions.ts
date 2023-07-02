@@ -123,18 +123,38 @@ export function randomize (array: any[]) : any[] {
 export function generateRandomWordsInElement (wordBox: any, words: string[]) {
     if (wordBox !== null && wordBox !== undefined) {
         wordBox.innerText = '';
+
+        let column = create("div");
+
         words.forEach((word: string, index: number) => {
+          
             const wordFrame: HTMLElement = create('div');
+            wordFrame.className = 'row gap-2 border rounded mb-1';
+            
             const wordNumber: HTMLElement = create('span');
-            const wordEelement: HTMLElement = create('span');
             wordNumber.textContent = String(index + 1);
-            wordNumber.style.backgroundColor = Color.getRandom();
+            const randomColor = Color.getRandom('22');
+            wordNumber.style.backgroundColor = randomColor;
+            wordNumber.style.borderRight = '1px solid ' + randomColor.substring(0, randomColor.length - 2) + 'FF';
+            wordNumber.className = 'col-2 px-0 rounded-start text-center py-2 fs-6 d-flex flex-column justify-content-center';
+            
+            const wordEelement: HTMLElement = create('span');
             wordEelement.textContent = word;
+            wordEelement.className = 'col px-0 py-1 d-flex flex-column justify-content-center';
+            
             wordFrame.appendChild(wordNumber);
             wordFrame.appendChild(wordEelement);
-            wordBox.appendChild(wordFrame);
+
+            if (index % 4 !== 0) {
+                column.appendChild(wordFrame);
+            } else if (index % 4 === 0) {
+                column = create("div");
+                column.className = 'col';
+                column.appendChild(wordFrame);
+                wordBox.appendChild(column);
+            }
         });
-        logger('PhraseBox regenerated');
+        logger('PhraseBox regenerated', words);
     }
 }
 
@@ -152,17 +172,14 @@ export function getNumericOrderedWords(words: string[]) {
     return orderedWords;
 }
 
-//------------------- from old login -------------------------
-
-export function hexToBytes(hexValue: string): number[] {
+function hexToBytes(hex: string): number[] {
     let bytes = [];
-    for (let c = 0; c < hexValue.length; c += 2) {
-        bytes.push(parseInt(hexValue.substring(c, 2), 16));
-    }
+    for (let c = 0; c < hex.length; c += 2)
+        bytes.push(parseInt(hex.substr(c, 2), 16));
     return bytes;
 }
 
-export function postData(url: string, data: any): Promise<Response> {
+function postData(url: string, data: any): Promise<Response> {
     const response = fetch(url, {
         method: "POST",
         headers: {
@@ -173,8 +190,15 @@ export function postData(url: string, data: any): Promise<Response> {
     return response;
 }
 
-export async function login(mnemonic: string): Promise<string | null> {
-    const mnemonicObject = ethers.Mnemonic.fromPhrase(mnemonic);
+export function getWords(): string[] {
+    const en = ethers.wordlists['en'] as ethers.WordlistOwl;
+    return en._decodeWords();
+}
+
+export async function login(mnemonic: string, passPhrase: string): Promise<string | null> {
+    logger('Login: ', mnemonic.trim(), passPhrase);
+
+    const mnemonicObject = ethers.Mnemonic.fromPhrase(mnemonic.trim(), passPhrase);
     const node = ethers.HDNodeWallet.fromMnemonic(mnemonicObject);
     const wallet = node.derivePath("m/44'/60'/0'/0/0");
     const digest = ethers.sha256(wallet.publicKey);
@@ -200,9 +224,15 @@ export async function login(mnemonic: string): Promise<string | null> {
         signature: signature64,
         publicKey: publicKey64,
     });
-    console.log(signature64,publicKey64)
+    logger('Login: ', {
+        signature: signature64,
+        publicKey: publicKey64,
+    })
     const result = await response.json();
 
     return result.value;
 }
-//--------------------------------------------------
+
+export function generateMnemonic(this: any): string[] {
+    return ethers.Mnemonic.fromEntropy(ethers.randomBytes(16), this).phrase.split(' ');
+}

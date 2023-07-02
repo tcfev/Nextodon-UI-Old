@@ -7,12 +7,13 @@ export class Color {
         '8', '9', 'A', 'B',
         'C', 'D', 'E', 'F'
     ];
-    static OPACITY_IN_HEX = '11';
+    static OPACITY_IN_HEX = '33';
 
     /**
      * Returns a random color
      * */
-    static getRandom() {
+    static getRandom(opacity:string = '33') {
+        Color.OPACITY_IN_HEX = opacity;
         return Color.generateColor();
     }
 
