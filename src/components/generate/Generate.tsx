@@ -21,6 +21,7 @@ export default function SignUp (props:SignUpProps) {
     const NAVIGATION_STEP_COUNT = 5;
     const [passPhrase, setPassphrase] = useState("");
     const [confirmPassphrase, setConfirmPassphrase] = useState("");
+    const [token, setToken] = useState<any>();
 
     const getContent = (state: number) => {
         switch(state) {
@@ -72,6 +73,7 @@ export default function SignUp (props:SignUpProps) {
                         icon={false} 
                         title="Verify Your Mnemonic" 
                         subtitle="Arrange your mnemonic in the correct order."
+                        setToken={setToken}
                     ></VerifyContent>
                 );
             case 4: 
@@ -81,6 +83,7 @@ export default function SignUp (props:SignUpProps) {
                         setNavState={setNavigationState}
                         icon={true}
                         title="Done!"
+                        token={token}
                         subtitle="Congratulations! Your digital identity is now secure. Your can now use your account and enjoy the freedom of speech. Please remember to keep your identity safe."
                     ></DoneContent>
                 );

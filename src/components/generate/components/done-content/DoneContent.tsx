@@ -6,7 +6,8 @@ type DoneContentProperties = {
     setNavState: (value:number) => void,
     icon: boolean
     title: string,
-    subtitle: string
+    subtitle: string,
+    token: any
 }
 
 export default function DoneContent (props: DoneContentProperties) {
@@ -25,6 +26,17 @@ export default function DoneContent (props: DoneContentProperties) {
                     <button 
                         className="col btn btn-primary" 
                         title="Go To App"
+                        onClick={() => {
+                            const query = new URLSearchParams(window.location.search);
+                            const redirectUri = query.get("redirect_uri");
+                            if (props.token) {
+                                if (redirectUri) {
+                                    window.location.href = redirectUri + "?code=" + props.token;
+                                } else {
+                                    window.location.href = "/";
+                                }
+                            }
+                        }}
                     >Go To App</button>
                 </div>
             </div>

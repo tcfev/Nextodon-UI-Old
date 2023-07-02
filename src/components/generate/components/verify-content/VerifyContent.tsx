@@ -13,7 +13,8 @@ type VerifyContentProperties = {
     icon: boolean
     title: string,
     subtitle: string,
-    passphrase: string
+    passphrase: string,
+    setToken: (token:any) => void
 }
 
 export default function VerifyContent (props: VerifyContentProperties) {
@@ -44,6 +45,7 @@ export default function VerifyContent (props: VerifyContentProperties) {
                 }
             }
         if (validated) {
+            const token = login(emptyPhrase.join(' '), props.passphrase);
             logger("Checking Verification", login(emptyPhrase.join(' '), props.passphrase));
         }
         return validated;
