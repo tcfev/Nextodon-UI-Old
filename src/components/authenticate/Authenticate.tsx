@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { get, getWords, isValidValue, logger, login, replaceErrorWithOk } from "../../helpers/functions";
-import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
+import { ethers } from "ethers";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { selectPhrase } from "../../store/features/phrase/phraseSlice";
 
 type SignInProps = {
     goTo: (route:any) => void
@@ -96,6 +98,20 @@ export default function SignIn (props: SignInProps) {
         }
     }
 
+
+    /**
+     * Handles click on regenrate button
+     * to generate new phrase
+     */
+    const generatePhrase = async () => {
+        const generatedPhrase = ethers.HDNodeWallet.createRandom().mnemonic?.phrase.split(' ');
+
+        if (generatedPhrase !== undefined)
+            if (generatedPhrase.length === 12) {
+                setPhrase(generatedPhrase.join(' '));
+            }
+    }
+
     return (
         <div className="card">
             <div className="card-header">
@@ -105,7 +121,14 @@ export default function SignIn (props: SignInProps) {
             <div className="card-body">
                 <h3 className="mb-5 fw-bold">Sign in to your account</h3>
                 <p className="row px-3">
-                    Enter your mnemonic phrase to import your Digital Identity
+                    Enter your mnemonic words or 
+                    <button 
+                        className="btn btn-primary btn-sm mx-2"
+                        onClick={() => generatePhrase()}
+                    >
+                        Generate
+                    </button>
+                    new ones
                 </p>
                 <form 
                     method="post" 
@@ -197,9 +220,9 @@ export default function SignIn (props: SignInProps) {
                         className="col btn btn-primary"
                         form="signin-form"
                         disabled={!isMnemonicComplete(phrase)}
-                    >Sign in</button>
+                    >Sign in / Sign up</button>
                 </div>
-                <p className="mt-3">
+                {/* <p className="mt-3">
                     Don't have an account yet? 
                     <span
                         className="p-2 text-decoration-underline text-primary"
@@ -207,7 +230,7 @@ export default function SignIn (props: SignInProps) {
                     >
                         Sign up
                     </span >
-                </p>
+                </p> */}
             </div>
         </div>
     );
