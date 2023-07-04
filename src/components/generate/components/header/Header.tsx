@@ -18,11 +18,11 @@ export default function Header (props: HeaderProperties) {
                     :
                     ''
                 }
-                <h2 className="mb-5 fw-bold">
+                <h3 className="mb-3 p-2">
                     {props.title}
-                </h2>
+                </h3>
             </div>
-            <p className="signup-head-subtitle">
+            <p className="signup-head-subtitle mb-4">
                 {props.subtitle}
             </p>
         </div>

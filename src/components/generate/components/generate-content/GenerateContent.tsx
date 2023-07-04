@@ -3,6 +3,7 @@ import {
     logger, 
     get,
     generateRandomWordsInElement,
+    login,
 } from "../../../../helpers/functions";
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { selectPhrase, setPhrase } from "../../../../store/features/phrase/phraseSlice";
@@ -17,7 +18,6 @@ type GenerateContentProperties = {
     navState: number,
     setNavState: (value:number) => void,
     goTo: (route:any) => void,
-    passphrase: string,
     icon: boolean
     title: string,
     subtitle: string
@@ -31,12 +31,13 @@ export default function GenerateContent (props: GenerateContentProperties) {
     let words: string[] | undefined = generatedPhrase.phrase.value;
     const [isLoaded, setIsLoaded] = useState(false);
     const [popupIsHide, setPopupIsHide] = useState(true);
+    const [passPhrase, setPassphrase] = useState("");
 
     /**
      * Handles form submit 
      * @param event 
      */
-    const handleFormSubmit = (event: any) => {
+    const handleFormSubmit = async (event: any) => {
         event.preventDefault();
 
         if (event.target.elements.agreement !== undefined &&
@@ -45,8 +46,22 @@ export default function GenerateContent (props: GenerateContentProperties) {
             words.length === WORD_LENGTH) {
             get('label[for="agreement-checkbox"]')?.classList.remove('error');
             logger('Form validation: OK');
-            props.setNavState(props.navState + 1 === 5 ? 0 : props.navState + 1);
-            
+
+             /**
+             * Check authentication
+             */
+            const token = await login(words.join(' '), passPhrase);
+            const query = new URLSearchParams(window.location.search);
+            const redirectUri = query.get("redirect_uri");
+
+            if (token) {
+                if (redirectUri) {
+                    window.location.href = redirectUri + "?code=" + token;
+                } else {
+                    window.location.href = "/";
+                }
+            }
+           
         } else {
             if (!event.target.elements.agreement.checked) {
                 get('label[for="agreement-checkbox"]')?.classList.add('error');
@@ -87,11 +102,11 @@ export default function GenerateContent (props: GenerateContentProperties) {
             <div className="card-body">
                 {
                     !isLoaded
-                    ? <Loading after={1} phraseCallback={() => {generatePhrase(props.passphrase);}}></Loading>
+                    ? <Loading after={1} phraseCallback={() => {generatePhrase(passPhrase);}}></Loading>
                     : ''
                 }
                 <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
-                <div className="row d-flex gap-1 mb-2 py-2 px-0" id="phrase-generation"></div>
+                <div className="row d-flex gap-1 mb-2 py-2 px-2" id="phrase-generation"></div>
                 <div className="row p-0">
                     <button 
                         className="btn btn-primary text-light col-6 mx-auto" 
@@ -105,6 +120,18 @@ export default function GenerateContent (props: GenerateContentProperties) {
                 </div>
                 <div className="row p-2 mt-4">
                     <form method="post" onSubmit={handleFormSubmit} id="written-form" autoComplete="off">
+                        <div className="row my-3">
+                            <label htmlFor="passphrase" className="p-0 mb-2">
+                            Passphrase (optional)
+                            </label>
+                            <input 
+                                id="passphrase" 
+                                className="p-2" 
+                                type="password" 
+                                placeholder="Enter your passphrase (or leave blank)"
+                                onInput={(e:any)=>setPassphrase(e.target.value)}
+                            />
+                        </div>
                         <div className="form-check">
                             <input 
                                 className="form-check-input" 
@@ -113,7 +140,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
                                 name="agreement" 
                                 onClick={(e) => setWritten(!isWritten)}
                             />
-                            <label htmlFor="agreement-checkbox" className="form-check-label">I have written down the mnemonic phrase.</label>
+                            <label htmlFor="agreement-checkbox" className="form-check-label">I have written the phrase on paper!.</label>
                         </div>
                     </form>
                 </div>
@@ -121,9 +148,9 @@ export default function GenerateContent (props: GenerateContentProperties) {
             <div className="card-footer">
                 <div className="row gap-2 p-2">
                     <button 
-                        className="col btn btn-secondary p-0" 
+                        className="col-3 btn btn-secondary p-0" 
                         title="Go Main Page" 
-                        onClick={() => props.setNavState(props.navState - 1)}
+                        onClick={() => props.goTo('SIGNIN')}
                     ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button>
                     <button 
                         className="col btn btn-primary" 
@@ -133,17 +160,8 @@ export default function GenerateContent (props: GenerateContentProperties) {
                         disabled={(
                             words === undefined || (words !== undefined && words.length !== WORD_LENGTH) || !isWritten
                         )}
-                    >Continue</button>
+                    >Enter Fordem</button>
                 </div>
-                <p className="mt-3">
-                    Already have an account? 
-                    <span
-                        className="p-2 text-decoration-underline text-primary"
-                        onClick={() => props.goTo('SIGNIN')}
-                    >
-                        Sign in
-                    </span >
-                </p>
             </div>
         </>
     );

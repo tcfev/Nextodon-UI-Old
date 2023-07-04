@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { get, getWords, isValidValue, logger, login, replaceErrorWithOk } from "../../helpers/functions";
-import { ethers } from "ethers";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { selectPhrase } from "../../store/features/phrase/phraseSlice";
 
 type SignInProps = {
     goTo: (route:any) => void
@@ -98,37 +95,20 @@ export default function SignIn (props: SignInProps) {
         }
     }
 
-
-    /**
-     * Handles click on regenrate button
-     * to generate new phrase
-     */
-    const generatePhrase = async () => {
-        const generatedPhrase = ethers.HDNodeWallet.createRandom().mnemonic?.phrase.split(' ');
-
-        if (generatedPhrase !== undefined)
-            if (generatedPhrase.length === 12) {
-                setPhrase(generatedPhrase.join(' '));
-            }
-    }
-
     return (
         <div className="card">
-            <div className="card-header">
-
-            </div>
-
             <div className="card-body">
-                <h3 className="mb-5 fw-bold">Sign in to your account</h3>
+                <h3 className="mb-5 p-2">Sign in to your account</h3>
                 <p className="row px-3">
-                    Enter your mnemonic words or 
+                    Enter your mnemonic phrase, or 
                     <button 
                         className="btn btn-primary btn-sm mx-2"
-                        onClick={() => generatePhrase()}
+                        // onClick={() => generatePhrase()}
+                        onClick={() => props.goTo('SIGNUP')}
                     >
                         Generate
                     </button>
-                    new ones
+                    one.
                 </p>
                 <form 
                     method="post" 
@@ -197,7 +177,7 @@ export default function SignIn (props: SignInProps) {
                         className="p-2"
                         name="password" 
                         type="password" 
-                        placeholder="Your password"
+                        placeholder="Enter your passphrase (or leave blank)"
                         onInput={
                             (event: any) => {
                                 setPassword(event.target.value);
@@ -210,27 +190,13 @@ export default function SignIn (props: SignInProps) {
 
             <div className="card-footer">
                 <div className="row gap-2 p-2">
-                    {/* <button 
-                        type="reset" 
-                        className="col btn btn-secondary p-0"
-                        onClick={() => props.goBack()}
-                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button> */}
                     <button 
                         type="submit" 
                         className="col btn btn-primary"
                         form="signin-form"
                         disabled={!isMnemonicComplete(phrase)}
-                    >Sign in / Sign up</button>
+                    >Enter Fordem</button>
                 </div>
-                {/* <p className="mt-3">
-                    Don't have an account yet? 
-                    <span
-                        className="p-2 text-decoration-underline text-primary"
-                        onClick={() => props.goTo('SIGNUP')}
-                    >
-                        Sign up
-                    </span >
-                </p> */}
             </div>
         </div>
     );
