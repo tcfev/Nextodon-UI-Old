@@ -1,29 +1,18 @@
-import { useEffect, useState } from "react";
-import { 
-    logger, 
-    get,
-    generateRandomWordsInElement,
-    login,
-} from "../../../../helpers/functions";
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { selectPhrase, setPhrase } from "../../../../store/features/phrase/phraseSlice";
-import Loading from "../../../loading/Loading";
-import PopUp from "../../../popup/PopUp";
-import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
-import { BiRefresh } from "react-icons/bi";
 import { ethers } from "ethers";
-import Header from "../header/Header";
+import PopUp from "./popup/PopUp";
+import Loading from "./loading/Loading";
+import { BiRefresh } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { selectPhrase, setPhrase } from "../store/features/phrase/phraseSlice";
+import { generateRandomWordsInElement, get, logger, login } from "../helpers/functions";
 
-type GenerateContentProperties = {
-    navState: number,
-    setNavState: (value:number) => void,
-    goTo: (route:any) => void,
-    icon: boolean
-    title: string,
-    subtitle: string
+type SignUpProps = {
+    goTo: (route:any) => void
 }
 
-export default function GenerateContent (props: GenerateContentProperties) {
+export default function SignUp (props:SignUpProps) {
     const [isWritten, setWritten] = useState<null | boolean>(null);
     const WORD_LENGTH = 12; 
     const dispatch = useAppDispatch();
@@ -33,11 +22,13 @@ export default function GenerateContent (props: GenerateContentProperties) {
     const [popupIsHide, setPopupIsHide] = useState(true);
     const [passPhrase, setPassphrase] = useState("");
 
-    /**
+    useEffect(() => {}, []);
+
+     /**
      * Handles form submit 
      * @param event 
      */
-    const handleFormSubmit = async (event: any) => {
+     const handleFormSubmit = async (event: any) => {
         event.preventDefault();
 
         if (event.target.elements.agreement !== undefined &&
@@ -47,7 +38,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
             get('label[for="agreement-checkbox"]')?.classList.remove('error');
             logger('Form validation: OK');
 
-             /**
+            /**
              * Check authentication
              */
             const token = await login(words.join(' '), passPhrase);
@@ -61,7 +52,6 @@ export default function GenerateContent (props: GenerateContentProperties) {
                     window.location.href = "/";
                 }
             }
-           
         } else {
             if (!event.target.elements.agreement.checked) {
                 get('label[for="agreement-checkbox"]')?.classList.add('error');
@@ -69,7 +59,6 @@ export default function GenerateContent (props: GenerateContentProperties) {
             logger('Form validation: FAILED');
         }
     }
-
 
     /**
      * Handles click on regenrate button
@@ -89,11 +78,9 @@ export default function GenerateContent (props: GenerateContentProperties) {
                 }
             }
     }
-    
-    useEffect(() => {}, []);
 
     return (
-        <>
+        <div className="card">
             {
                 popupIsHide
                 ? ''
@@ -105,7 +92,17 @@ export default function GenerateContent (props: GenerateContentProperties) {
                     ? <Loading after={1} phraseCallback={() => {generatePhrase(passPhrase);}}></Loading>
                     : ''
                 }
-                <Header icon={props.icon} title={props.title} subtitle={props.subtitle} ></Header>
+                <div className="row">
+                    <div className="col">
+                        <h3 className="mb-3 py-2">
+                            Generate Mnemonic
+                        </h3>
+                    </div>
+                    <p className="mb-4 text-justify">
+                        Your mnemonic is your digital identity. It is important to keep it secure. Write it down on paper and store it in a safe location to prevent loss.
+                    </p>
+                </div>
+                
                 <div className="row d-flex gap-1 mb-2 py-2 px-2" id="phrase-generation"></div>
                 <div className="row p-0">
                     <button 
@@ -163,6 +160,6 @@ export default function GenerateContent (props: GenerateContentProperties) {
                     >Enter Fordem</button>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

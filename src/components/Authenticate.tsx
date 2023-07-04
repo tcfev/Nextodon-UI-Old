@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { get, getWords, isValidValue, logger, login, replaceErrorWithOk } from "../../helpers/functions";
+import { get, getWords, isValidValue, logger, login, replaceErrorWithOk } from "../helpers/functions";
 
 type SignInProps = {
     goTo: (route:any) => void
@@ -98,12 +98,11 @@ export default function SignIn (props: SignInProps) {
     return (
         <div className="card">
             <div className="card-body">
-                <h3 className="mb-5 p-2">Sign in to your account</h3>
+                <h3 className="mb-5 py-2">Sign in to your account</h3>
                 <p className="row px-3">
                     Enter your mnemonic phrase, or 
                     <button 
                         className="btn btn-primary btn-sm mx-2"
-                        // onClick={() => generatePhrase()}
                         onClick={() => props.goTo('SIGNUP')}
                     >
                         Generate
@@ -119,7 +118,7 @@ export default function SignIn (props: SignInProps) {
                 >
                     <div className="col position-relative p-0 m-0">
                         <span className="glassy-left"></span>
-                        <div className="d-flex w-auto overflow-y-auto gap-2 pb-3 px-5 mx-3">
+                        <div className="d-flex w-auto overflow-y-auto gap-2 pb-3 px-5 mx-3" style={{'height' : '40px'}}>
                             {suggestionList && suggestionList.map((w, i) => 
                                 <div 
                                     className="border rounded py-0 px-2 border-info text-info"

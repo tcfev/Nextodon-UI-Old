@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Authenticate from './components/authenticate/Authenticate';
-import Generate from './components/generate/Generate';
+import Authenticate from './components/Authenticate';
+import Generate from './components/Generate';
 
 type Route = 'SIGNIN' | 'SIGNUP';
 
@@ -15,7 +15,7 @@ function App() {
     event.preventDefault();
   };
 
-  useEffect(() => {},[])
+  useEffect(() => {}, [])
 
   return (
     <div className="App container flex-column justify-content-center py-2" onContextMenu={handleOnContextMenu}>
@@ -38,3 +38,11 @@ function App() {
 }
 
 export default App;
+
+// gallery shed chase type fortune harsh essence absurd state health public monster
+// Test
+
+// "A58fe9+fFo0xNWjUAu3txqh0Y1LWHev1TQecdg/Hco3G"
+// "A58fe9+fFo0xNWjUAu3txqh0Y1LWHev1TQecdg/Hco3G"
+// "MEQCINLJxaxrYyZvvwZ7TSc9nMeXwcv723r2wMIj8XiOijiFAiBAoYFohbIj0GH85WLsNoAsg+yL+UyFYDdTHWNKsaZDyw=="
+// "MEQCINLJxaxrYyZvvwZ7TSc9nMeXwcv723r2wMIj8XiOijiFAiBAoYFohbIj0GH85WLsNoAsg+yL+UyFYDdTHWNKsaZDyw=="
