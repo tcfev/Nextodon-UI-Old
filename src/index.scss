@@ -33,26 +33,6 @@ input.ok {
   outline-color:rgb(0, 194, 116) !important;
 }
 
-.glassy-left {
-  backdrop-filter: blur(2px);
-  position: absolute;
-  z-index: 1000;
-  height: calc(100% - 16px);
-  width: 50px;
-  left: 0;
-  top:0;
-}
-
-.glassy-right {
-  backdrop-filter: blur(2px);
-  position: absolute;
-  z-index: 1000;
-  height: calc(100% - 16px);
-  width: 50px;
-  right: 0;
-  top:0;
-}
-
 .popup-box {
   position: fixed;
   left:0;
@@ -193,7 +173,17 @@ div.loading-spinner {
 
   span.fs-6 {
     background-color: #222;
-  }  
+  } 
+  
+  
+  .border-info.text-info {
+    color: #d887fe !important;
+    border-color: #ba81f0af !important;
+    background-color: #7d0ab66a !important;
+    vertical-align: middle;
+    padding: 3px 10px !important;
+    height: fit-content !important;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -234,22 +224,6 @@ div.loading-spinner {
     color: #333;
   }
 
-  .glassy-left {
-    background: rgb(255,255,255);
-    background: -moz-linear-gradient(90deg, rgba(255,255,255,1) 33%, rgba(255,255,255,0.4444444444444444) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(255,255,255,1) 33%, rgba(255,255,255,0.4444444444444444) 100%);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 33%, rgba(255,255,255,0.4444444444444444) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);  
-  }
-  
-  .glassy-right {
-    background: rgb(255,255,255);
-    background: -moz-linear-gradient(263deg, rgba(255,255,255,1) 33%, rgba(255,255,255,0.4444444444444444) 100%);
-    background: -webkit-linear-gradient(263deg, rgba(255,255,255,1) 33%, rgba(255,255,255,0.4444444444444444) 100%);
-    background: linear-gradient(263deg, rgba(255,255,255,1) 33%, rgba(255,255,255,0.4444444444444444) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);  
-  }
-
   textarea.ok,
   input.ok,
   textarea.error,
@@ -260,6 +234,16 @@ div.loading-spinner {
   span.fs-6 {
     background-color: #d2d2d285;
   }  
+
+
+  .border-info.text-info {
+    color: #8e08cb !important;
+    border-color: #ba81f0af !important;
+    background-color: #f0d1ff6a !important;
+    vertical-align: middle;
+    padding: 3px 10px !important;
+    height: fit-content !important;
+  }
 }
 
 .btn-primary {
@@ -283,13 +267,4 @@ div.loading-spinner {
 
 .btn-sm {
   width: fit-content !important;
-}
-
-.border-info.text-info {
-  color: #8e08cb !important;
-  border-color: #ba81f0af !important;
-  background-color: #f0d1ff6a !important;
-  vertical-align: middle;
-  padding: 3px 10px !important;
-  height: fit-content !important;
 }

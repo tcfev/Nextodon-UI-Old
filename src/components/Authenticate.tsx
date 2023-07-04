@@ -117,8 +117,7 @@ export default function SignIn (props: SignInProps) {
                     autoComplete="off"
                 >
                     <div className="col position-relative p-0 m-0">
-                        <span className="glassy-left"></span>
-                        <div className="d-flex w-auto overflow-y-auto gap-2 pb-3 px-5 mx-3" style={{'height' : '40px'}}>
+                        <div className="d-flex w-auto overflow-y-auto gap-2 px-5 mx-3 my-2" style={{'height' : '50px'}}>
                             {suggestionList && suggestionList.map((w, i) => 
                                 <div 
                                     className="border rounded py-0 px-2 border-info text-info"
@@ -144,7 +143,6 @@ export default function SignIn (props: SignInProps) {
                                 </div>
                             )}
                         </div>
-                        <span className="glassy-right"></span>
                     </div>
                     <textarea 
                         name="phrase" 
