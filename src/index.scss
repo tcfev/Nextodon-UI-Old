@@ -119,28 +119,6 @@ div.loading-spinner {
   }
 }
 
-.navigation {
-  gap: 5px;
-  width: 100%;
-  height: 10px;
-  min-height: 10px;
-  display: flex;
-  justify-content: center;
-
-  &-link {
-      width: 5%;
-      height: 100%;
-      display: block;
-      background-color: rgb(200, 200, 200);
-      border-radius: 1rem;
-
-      &.active {
-          width: 15%;
-          background-color: #5b46db;
-      }
-  }
-}
-
 #root {
   height: 100vh;
 }
@@ -305,4 +283,13 @@ div.loading-spinner {
 
 .btn-sm {
   width: fit-content !important;
+}
+
+.border-info.text-info {
+  color: #8e08cb !important;
+  border-color: #ba81f0af !important;
+  background-color: #f0d1ff6a !important;
+  vertical-align: middle;
+  padding: 3px 10px !important;
+  height: fit-content !important;
 }
