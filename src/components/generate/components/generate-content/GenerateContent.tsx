@@ -140,7 +140,7 @@ export default function GenerateContent (props: GenerateContentProperties) {
                                 name="agreement" 
                                 onClick={(e) => setWritten(!isWritten)}
                             />
-                            <label htmlFor="agreement-checkbox" className="form-check-label">I have written the phrase on paper!.</label>
+                            <label htmlFor="agreement-checkbox" className="form-check-label">I have written the phrase on paper!</label>
                         </div>
                     </form>
                 </div>
