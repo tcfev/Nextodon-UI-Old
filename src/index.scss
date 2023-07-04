@@ -3,12 +3,17 @@
   -moz-user-select: none;
 }
 
+:root {
+  color-scheme: dark light;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: fit-content;
 }
 
 code {
@@ -52,6 +57,10 @@ input.ok {
 
 span.fs-6 {
   font-size: 12px !important;
+}
+
+h1 {
+  font-size: 2.5rem !important; 
 }
 
 div.loading-spinner {
@@ -101,21 +110,24 @@ div.loading-spinner {
 
 #root {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (prefers-color-scheme: dark) {
   html, body {
-    background-color: #222;
+    background-color: #121212 !important;
     color: #efefef;
   }
 
   .App, #root {
-    background-color: #222;
+    background-color: #121212;
     color: #efefef;
   }
 
   body > * {
-    background-color: #333;
+    background-color: #121212;
     color: #efefef;
   }
 
@@ -139,22 +151,6 @@ div.loading-spinner {
   .popup-box > * {
     background-color: #333;
     color: #efefef;
-  }
-
-  .glassy-left {
-    background: #333;
-    background: -moz-linear-gradient(90deg, #333333 33%, rgba(51,51,51, 0.444) 100%);
-    background: -webkit-linear-gradient(90deg, #333 33%,  rgba(51,51,51, 0.444)  100%);
-    background: linear-gradient(90deg, #333 33%,  rgba(51,51,51, 0.444)  100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#333",endColorstr="#333",GradientType=1);  
-  }
-  
-  .glassy-right {
-    background: #333;
-    background: -moz-linear-gradient(263deg, #333 33%,  rgba(51,51,51, 0.444) 100%);
-    background: -webkit-linear-gradient(263deg, #333 33%,  rgba(51,51,51, 0.444)  100%);
-    background: linear-gradient(263deg, #333 33%,  rgba(51,51,51, 0.444)  100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#333",endColorstr="#333",GradientType=1);  
   }
 
   textarea.ok,
@@ -188,22 +184,22 @@ div.loading-spinner {
 
 @media (prefers-color-scheme: light) {
   html, body {
-    background-color: #eaeaea;
+    background-color: #fff!important;
     color: #333;
   }
 
   .App, #root {
-    background-color: #eaeaea;
+    background-color: #fff;
     color: #333;
   }
 
   body > * {
-    background-color: white;
+    background-color: #fff;
     color: #333;
   }
 
   div.card {
-    background-color: white;
+    background-color: fff;
     color: #333;
     box-shadow: 0 0 5px 0.5px rgba(0, 0, 0, 0.17) !important;
   }
