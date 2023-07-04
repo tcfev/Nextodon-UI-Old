@@ -36,21 +36,24 @@ export default function SignUp (props:SignUpProps) {
             words !== undefined && 
             words.length === WORD_LENGTH) {
             get('label[for="agreement-checkbox"]')?.classList.remove('error');
-            logger('Form validation: OK');
 
-            /**
-             * Check authentication
-             */
-            const token = await login(words.join(' '), passPhrase);
-            const query = new URLSearchParams(window.location.search);
-            const redirectUri = query.get("redirect_uri");
+            try {
+                /**
+                 * Check authentication
+                 */
+                const token = await login(words.join(' '), passPhrase);
+                const query = new URLSearchParams(window.location.search);
+                const redirectUri = query.get("redirect_uri");
 
-            if (token) {
-                if (redirectUri) {
-                    window.location.href = redirectUri + "?code=" + token;
-                } else {
-                    window.location.href = "/";
+                if (token) {
+                    if (redirectUri) {
+                        window.location.href = redirectUri + "?code=" + token;
+                    } else {
+                        window.location.href = "/";
+                    }
                 }
+            } catch (error) {
+                logger("Invalid mnemonic");
             }
         } else {
             if (!event.target.elements.agreement.checked) {
