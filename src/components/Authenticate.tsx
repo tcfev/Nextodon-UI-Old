@@ -12,6 +12,7 @@ export default function SignIn (props: SignInProps) {
     const [searchVal, setSearchVal] = useState("");
     const [valStart, setValStart] = useState(0);
     const [valEnd, setValEnd] = useState(0);
+    const [errorMessage, setErrorMessage] = useState("");
 
     /**
      * Makes suggestion list top of mnemonic input element
@@ -46,16 +47,22 @@ export default function SignIn (props: SignInProps) {
         /**
          * Check authentication
          */
-        const token = await login(mnemonicPhrase, password);
-        const query = new URLSearchParams(window.location.search);
-        const redirectUri = query.get("redirect_uri");
 
-        if (token) {
-            if (redirectUri) {
-                window.location.href = redirectUri + "?code=" + token;
-            } else {
-                window.location.href = "/";
+        try {
+            const token = await login(mnemonicPhrase, password);
+            const query = new URLSearchParams(window.location.search);
+            const redirectUri = query.get("redirect_uri");
+
+            if (token) {
+                if (redirectUri) {
+                    window.location.href = redirectUri + "?code=" + token;
+                } else {
+                    window.location.href = "/";
+                }
             }
+        } catch (error) {
+            setErrorMessage("Invalid mnemonic");
+            setPhrase('');
         }
     }
 
@@ -67,7 +74,6 @@ export default function SignIn (props: SignInProps) {
      */
     const getDigitalIdentity = (event: any) => {
         event.preventDefault();
-        console.log("aa")
 
         if (isValidValue(event.target.elements.phrase, event.target.elements.phrase.value)) {
             replaceErrorWithOk (event.target.elements.phrase);
@@ -82,14 +88,7 @@ export default function SignIn (props: SignInProps) {
                 event.target.elements.password.value.length > 0
             )
         ) {
-
-            /**
-             * call authenticate now
-             */
             authenticate(phrase, password);
-
-            logger('Form validation: OK');
-
         } else {
             logger('Form validation: FAILED');
         }
@@ -144,6 +143,7 @@ export default function SignIn (props: SignInProps) {
                             )}
                         </div>
                     </div>
+                    <span className="text-danger">{errorMessage}</span>
                     <textarea 
                         name="phrase" 
                         placeholder="A mnemonic phrase could have 12, 15, 18, 21 or 24 words. Please Enter and separate them with space."
@@ -155,6 +155,7 @@ export default function SignIn (props: SignInProps) {
 
                                 setValStart(valueStart);
                                 setValEnd(valueEnd);
+                                setErrorMessage('');
 
                                 if(isValidValue(event.target, event.target.value)){
                                     setPhrase(event.target.value);
