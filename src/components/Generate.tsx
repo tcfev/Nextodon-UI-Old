@@ -140,7 +140,7 @@ export default function SignUp (props:SignUpProps) {
                                 name="agreement" 
                                 onClick={(e) => setWritten(!isWritten)}
                             />
-                            <label htmlFor="agreement-checkbox" className="form-check-label">I have written the phrase on paper!</label>
+                            <label htmlFor="agreement-checkbox" className="form-check-label">I have written my mnemonic (& my passphrase) on paper!</label>
                         </div>
                     </form>
                 </div>
@@ -148,10 +148,10 @@ export default function SignUp (props:SignUpProps) {
             <div className="card-footer">
                 <div className="row gap-2 p-2">
                     <button 
-                        className="col-3 btn btn-secondary p-0" 
+                        className="col-3 btn btn-link p-0" 
                         title="Go Main Page" 
                         onClick={() => props.goTo('SIGNIN')}
-                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button>
+                    ><HiOutlineArrowNarrowLeft size={25}></HiOutlineArrowNarrowLeft></button>
                     <button 
                         className="col btn btn-primary" 
                         type="submit" 
