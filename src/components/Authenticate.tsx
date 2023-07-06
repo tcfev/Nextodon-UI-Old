@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { get, getWords, isValidValue, logger, login, replaceErrorWithOk } from "../../helpers/functions";
-import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
+import { get, getWords, isValidValue, logger, login, replaceErrorWithOk } from "../helpers/functions";
 
 type SignInProps = {
     goTo: (route:any) => void
@@ -13,6 +12,7 @@ export default function SignIn (props: SignInProps) {
     const [searchVal, setSearchVal] = useState("");
     const [valStart, setValStart] = useState(0);
     const [valEnd, setValEnd] = useState(0);
+    const [errorMessage, setErrorMessage] = useState("");
 
     /**
      * Makes suggestion list top of mnemonic input element
@@ -47,16 +47,22 @@ export default function SignIn (props: SignInProps) {
         /**
          * Check authentication
          */
-        const token = await login(mnemonicPhrase, password);
-        const query = new URLSearchParams(window.location.search);
-        const redirectUri = query.get("redirect_uri");
 
-        if (token) {
-            if (redirectUri) {
-                window.location.href = redirectUri + "?code=" + token;
-            } else {
-                window.location.href = "/";
+        try {
+            const token = await login(mnemonicPhrase, password);
+            const query = new URLSearchParams(window.location.search);
+            const redirectUri = query.get("redirect_uri");
+
+            if (token) {
+                if (redirectUri) {
+                    window.location.href = redirectUri + "?code=" + token;
+                } else {
+                    window.location.href = "/";
+                }
             }
+        } catch (error) {
+            setErrorMessage("Invalid mnemonic");
+            setPhrase('');
         }
     }
 
@@ -68,7 +74,6 @@ export default function SignIn (props: SignInProps) {
      */
     const getDigitalIdentity = (event: any) => {
         event.preventDefault();
-        console.log("aa")
 
         if (isValidValue(event.target.elements.phrase, event.target.elements.phrase.value)) {
             replaceErrorWithOk (event.target.elements.phrase);
@@ -83,14 +88,7 @@ export default function SignIn (props: SignInProps) {
                 event.target.elements.password.value.length > 0
             )
         ) {
-
-            /**
-             * call authenticate now
-             */
             authenticate(phrase, password);
-
-            logger('Form validation: OK');
-
         } else {
             logger('Form validation: FAILED');
         }
@@ -98,14 +96,17 @@ export default function SignIn (props: SignInProps) {
 
     return (
         <div className="card">
-            <div className="card-header">
-
-            </div>
-
             <div className="card-body">
-                <h3 className="mb-5 fw-bold">Sign in to your account</h3>
+                <h3 className="mb-5 py-2">Sign in to your account</h3>
                 <p className="row px-3">
-                    Enter your mnemonic phrase to import your Digital Identity
+                    Enter your mnemonic phrase, or 
+                    <button 
+                        className="btn btn-primary btn-sm mx-2"
+                        onClick={() => props.goTo('SIGNUP')}
+                    >
+                        Generate
+                    </button>
+                    one.
                 </p>
                 <form 
                     method="post" 
@@ -115,8 +116,7 @@ export default function SignIn (props: SignInProps) {
                     autoComplete="off"
                 >
                     <div className="col position-relative p-0 m-0">
-                        <span className="glassy-left"></span>
-                        <div className="d-flex w-auto overflow-y-auto gap-2 pb-3 px-5 mx-3">
+                        <div className="d-flex w-auto overflow-y-auto gap-2 px-5 mx-3 my-2" style={{'height' : '50px'}}>
                             {suggestionList && suggestionList.map((w, i) => 
                                 <div 
                                     className="border rounded py-0 px-2 border-info text-info"
@@ -142,8 +142,8 @@ export default function SignIn (props: SignInProps) {
                                 </div>
                             )}
                         </div>
-                        <span className="glassy-right"></span>
                     </div>
+                    <span className="text-danger">{errorMessage}</span>
                     <textarea 
                         name="phrase" 
                         placeholder="A mnemonic phrase could have 12, 15, 18, 21 or 24 words. Please Enter and separate them with space."
@@ -155,6 +155,7 @@ export default function SignIn (props: SignInProps) {
 
                                 setValStart(valueStart);
                                 setValEnd(valueEnd);
+                                setErrorMessage('');
 
                                 if(isValidValue(event.target, event.target.value)){
                                     setPhrase(event.target.value);
@@ -174,7 +175,7 @@ export default function SignIn (props: SignInProps) {
                         className="p-2"
                         name="password" 
                         type="password" 
-                        placeholder="Your password"
+                        placeholder="Enter your passphrase (or leave blank)"
                         onInput={
                             (event: any) => {
                                 setPassword(event.target.value);
@@ -187,27 +188,13 @@ export default function SignIn (props: SignInProps) {
 
             <div className="card-footer">
                 <div className="row gap-2 p-2">
-                    {/* <button 
-                        type="reset" 
-                        className="col btn btn-secondary p-0"
-                        onClick={() => props.goBack()}
-                    ><HiOutlineArrowNarrowLeft size={40}></HiOutlineArrowNarrowLeft></button> */}
                     <button 
                         type="submit" 
                         className="col btn btn-primary"
                         form="signin-form"
                         disabled={!isMnemonicComplete(phrase)}
-                    >Sign in</button>
+                    >Enter Fordem</button>
                 </div>
-                <p className="mt-3">
-                    Don't have an account yet? 
-                    <span
-                        className="p-2 text-decoration-underline text-primary"
-                        onClick={() => props.goTo('SIGNUP')}
-                    >
-                        Sign up
-                    </span >
-                </p>
             </div>
         </div>
     );

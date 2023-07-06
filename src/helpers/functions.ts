@@ -1,5 +1,4 @@
 import { ethers } from 'ethers';
-import { Color } from './classes';
 const DEBUG:boolean = true;
 
 /**
@@ -133,9 +132,6 @@ export function generateRandomWordsInElement (wordBox: any, words: string[]) {
             
             const wordNumber: HTMLElement = create('span');
             wordNumber.textContent = String(index + 1);
-            const randomColor = Color.getRandom('22');
-            wordNumber.style.backgroundColor = randomColor;
-            wordNumber.style.borderRight = '1px solid ' + randomColor.substring(0, randomColor.length - 2) + 'FF';
             wordNumber.className = 'col-2 px-0 rounded-start text-center py-2 fs-6 d-flex flex-column justify-content-center';
             
             const wordEelement: HTMLElement = create('span');
