@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-const DEBUG:boolean = true;
+const DEBUG:boolean = false;
 
 /**
  * Checks if is the value on given target after form submit
@@ -220,10 +220,10 @@ export async function login(mnemonic: string, passPhrase: string): Promise<strin
         signature: signature64,
         publicKey: publicKey64,
     });
-    logger('Login: ', {
-        signature: signature64,
-        publicKey: publicKey64,
-    })
+    // logger('Login: ', {
+    //     signature: signature64,
+    //     publicKey: publicKey64,
+    // })
     const result = await response.json();
 
     return result.value;
